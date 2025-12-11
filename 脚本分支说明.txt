@@ -1,2 +1,36 @@
 应该将对应的脚本放到对应的文件夹下，不用区分是谁写的，
 比如框架脚本就应该放在框架文件夹下面
+
+
+
+Editor
+	UIFile_Create_Editor -----------MVC层制作编辑器
+
+Script
+	Game -----C#脚本
+		GameManager
+			GameManager -----游戏入口
+		Net -------C#网络文件夹
+	Lua  -------lua脚本
+		Common -----------工具文件夹
+		Config
+			ConfigManager ----------本地配置表读取管理类
+		GameEnum ----------- 常用枚举
+		Lua_Manager ------------ 各个模块管理器文件夹
+			ModelManager ------------- model层管理类 ，用于注册、获取model
+			UIManager ------------- ui面板管理类，用于打开、加载ui
+			RedPointManager --------------- 红点管理类
+		main
+			LuaEnvMgr ------------ lua 虚拟机
+			LuaMain ---------------- lua 启动入口
+		Message
+			UI_MessageControll -------------- ui模块之间交互用到的消息中心
+			Net_MessageControll.lua -------------- 处理网络消息用到的消息中心
+		Net 
+			NetID -------------- 网络消息id，与服务器双端匹配
+			ClientID ----------- 客户端ui有功能消息交互的id
+			NetManager ----------- 绑定C#端的网络消息中介处理器
+		UI ----------------所有ui的根目录文件夹 （存放具体的uimvc层）
+			UIConfigMgr ------------ ui的制作信息（规则）
+		
+		
