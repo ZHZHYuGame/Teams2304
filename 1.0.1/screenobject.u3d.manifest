@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 14124172
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a8c31c826df193fbe02d02f302bf43b2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f39e68bea8f2398b8572b2c10e37e9d9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/ABPaclage/ScreenObject.prefab
+Dependencies: []

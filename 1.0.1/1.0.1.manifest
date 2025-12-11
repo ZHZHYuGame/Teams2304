@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 90863555
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: kamiapp.u3d
+      Dependencies: {}
+    Info_1:
+      Name: screenobject.u3d
+      Dependencies: {}
