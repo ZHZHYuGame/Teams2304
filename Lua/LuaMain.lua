@@ -1,16 +1,16 @@
 require("Lipus/BaseClass")
 require("Lipus/head")
-require("Message/Net_MessageControll")
-require("Net/NetManager")
+-- require("Message/Net_MessageControll")
+-- require("Net/NetManager")
 require("Lipus/LuaUtil")
-NetManager:Init()
+-- NetManager:Init()
 print("baseclass = ", _G.BaseClass)
 _G.UImgr = require("Lua_Manager/UIManager")
 _G.UImgr:Init()
 require("GameEnum/UILayer")
 require("GameEnum/UITypeEnum")
 require("UI/UIConfigMgr")
-require("Net/NetID")
+-- require("Net/NetID")
 
 
 local bagbtn
@@ -31,7 +31,7 @@ function LuaStart()
 end
 
 function LuaUpdata()
-
+-- print("LuaUpdata..............")
 end
 
 --local c_Chat_Msg = MyGame.C_To_S_Chat_Msg()
