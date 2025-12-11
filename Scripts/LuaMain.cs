@@ -21,7 +21,7 @@ public class LuaMain : Singleton<LuaMain>
 
     private byte[] Cust(ref string filepath)
     {
-        return File.ReadAllBytes(Application.dataPath + "/LuaMain/" + filepath + ".lua");
+        return File.ReadAllBytes(Application.dataPath + "/Lua/" + filepath + ".lua");
     }
 
     // Update is called once per frame
