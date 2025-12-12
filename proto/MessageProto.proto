@@ -1,0 +1,72 @@
+syntax = "proto3";
+package myGame;
+
+
+message NetBagData
+{
+  int32 id = 1 ;
+  int32 itemId = 2;
+  int32 itemIndex = 3;
+  int32 count = 4;
+}
+
+
+message NetPlayerData
+{
+  
+   int32 playerId = 1;
+   string userName = 2;
+   string passWord = 3;
+   int32 food = 4;
+   int32 wood = 5;
+   int32 diamond = 6;
+   
+}
+
+message S_To_C_GetPlayerData_Msg
+{
+    NetPlayerData  playerData = 1;
+    map<int32,NetBagData> bagDataDict = 2;
+     
+}
+
+message C_To_S_GetPlayerData_Msg
+{
+    int32 playerId = 1;
+}
+
+
+//-------------------------------背包模块
+
+message C_To_S_UseBagItem_Msg
+{
+    NetBagData bagData = 1;
+    ItemType itemType = 2;
+    AddResType addType = 3;
+    int32 UpdateCount = 4;
+}
+
+message S_To_C_UseBagItem_Msg
+{
+  NetBagData bagData = 1;
+  ItemType itemType = 2;
+  AddResType addType = 3;
+  int32 UpdateCount = 4;
+}
+
+
+enum ItemType
+{
+    res = 0;
+    addTime = 1;
+    buff = 2;
+    equip = 3;
+    other = 4;
+}
+
+enum AddResType
+{
+    food = 0;
+    wood = 1;
+    diamond = 2;
+}
