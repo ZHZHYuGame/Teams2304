@@ -1,0 +1,11 @@
+syntax="proto3";
+package MyGame;
+
+message C_To_S_Main
+{
+     
+}
+message S_To_C_Main
+{
+     int32 money=1;
+}

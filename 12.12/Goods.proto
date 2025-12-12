@@ -1,0 +1,58 @@
+syntax="proto3";
+package MyGame;
+
+message GoodsData
+{
+	string id=1;
+	string name=2;
+	string icon=3;
+	string inventoryType=4;
+	string equipType=5;
+	string sale=6;
+	string starLevel=7;
+	string quality=8;
+	string damage=9;
+	string hp=10;
+	string power=11;
+	string Des=12;
+        int32 num=13;
+} 
+message C_To_S_ShopGoods
+{
+      
+}
+message S_To_C_ShopGoods
+{
+	repeated GoodsData goodsdatalist=1;
+}
+message BagGoodsData
+{
+     GoodsData data=1;
+     int32 num=2;
+}
+message C_To_S_BagGoods
+{
+     
+}
+message S_To_C_BagGoods
+{
+     repeated BagGoodsData bagitemlist=1;
+}
+message C_To_S_BuyGood
+{
+     int32 id=1;
+     int32 num=2;
+}
+message S_To_C_BuyGood
+{
+     bool isbuy=1;
+}
+message C_To_S_SendGood
+{
+     int32 id=1;
+     int32 num=2;
+}
+message S_To_C_SendGood
+{
+     repeated BagGoodsData bagitemlist=1;
+}
