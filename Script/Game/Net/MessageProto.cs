@@ -53,8 +53,19 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "itemIndex" field.</summary>
+    public const int ItemIndexFieldNumber = 3;
+    private int itemIndex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ItemIndex {
+      get { return itemIndex_; }
+      set {
+        itemIndex_ = value;
+      }
+    }
+
     /// <summary>Field number for the "count" field.</summary>
-    public const int CountFieldNumber = 3;
+    public const int CountFieldNumber = 4;
     private int count_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Count {
@@ -74,8 +85,12 @@ namespace MyGame {
         output.WriteRawTag(16);
         output.WriteInt32(ItemId);
       }
-      if (Count != 0) {
+      if (ItemIndex != 0) {
         output.WriteRawTag(24);
+        output.WriteInt32(ItemIndex);
+      }
+      if (Count != 0) {
+        output.WriteRawTag(32);
         output.WriteInt32(Count);
       }
     }
@@ -88,6 +103,9 @@ namespace MyGame {
       }
       if (ItemId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+      }
+      if (ItemIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemIndex);
       }
       if (Count != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Count);
@@ -112,6 +130,10 @@ namespace MyGame {
             break;
           }
           case 24: {
+            ItemIndex = input.ReadInt32();
+            break;
+          }
+          case 32: {
             Count = input.ReadInt32();
             break;
           }
