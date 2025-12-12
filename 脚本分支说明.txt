@@ -11,6 +11,8 @@ Script
 		GameManager
 			GameManager -----游戏入口
 		Net -------C#网络文件夹
+			MessageProto ---------网络协议PB文件
+
 	Lua  -------lua脚本
 		Common -----------工具文件夹
 		Config
