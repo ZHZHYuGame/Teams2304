@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class ABManager : Singleton<ABManager>
 {
@@ -20,7 +22,7 @@ public class ABManager : Singleton<ABManager>
     private string abPath;
     public void OnInit()
     {
-        abPath = $"{Application.persistentDataPath}";
+        abPath = $"{Application.streamingAssetsPath}/{Application.version}";
         InitDependence();
     }
     /// <summary>
@@ -32,8 +34,8 @@ public class ABManager : Singleton<ABManager>
         {
             allDependDict = new Dictionary<string, string[]>();
             //拼接的是p目录路径下面的1.0.3(版本号资源清单,根据实际版本读取)这个mainfest类型文件
-            string version = File.ReadAllText($"{abPath}/Version.txt");
-            string path = $"{abPath}/{version}";
+            string version = File.ReadAllText($"{Application.streamingAssetsPath}/Version.txt");
+            string path = $"{abPath}/{Application.version}";
             //加载整体的资源包
             AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
             //加载资源
@@ -73,7 +75,127 @@ public class ABManager : Singleton<ABManager>
         }
         //加载真正需要的资源自己
         MyAssetBundle my = LoadAssetBundle(assetBundleName);
-        return my.ab.LoadAllAssets<T>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+        ///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+        T[] t = my.ab.LoadAllAssets<T>();
+        return t[0];
+    }
+    /// <summary>
+    /// lua调用加载指定的资源(具体某个资源)
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Object LoadAssetLua(string name , System.Type type)
+    {
+        MethodInfo loadMethod = GetInstance().GetType().GetMethod(
+            "LoadAsset", 
+            BindingFlags.Public | BindingFlags.Instance, // 注意：原代码用 NonPublic，需匹配方法实际访问修饰符！
+            null,
+            new[] { typeof(string) }, // LoadAsset<T> 的参数类型是 string
+            null
+        );
+        
+        MethodInfo spMethodInfo = loadMethod.MakeGenericMethod(type);
+
+        object rawResult = spMethodInfo.Invoke(this, new object[] { name });
+
+        //object obj = ConvertReturnValue(rawResult, type);
+
+        return rawResult as Object;
+    }
+    
+    /// <summary>
+    /// lua加载指定的资源(资源数组)
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Object[] LoadAssetArrayLua(string name , System.Type type)
+    {
+        MethodInfo loadMethod = GetInstance().GetType().GetMethod(
+            "LoadAssetArray", 
+            BindingFlags.Public | BindingFlags.Instance, // 注意：原代码用 NonPublic，需匹配方法实际访问修饰符！
+            null,
+            new[] { typeof(string) }, // LoadAsset<T> 的参数类型是 string
+            null
+        );
+        
+        MethodInfo spMethodInfo = loadMethod.MakeGenericMethod(type);
+
+        object rawResult = spMethodInfo.Invoke(this, new object[] { name });
+        
+        object[] objArray = rawResult as object[];
+
+        for (int i = 0; i < objArray.Length; i++)
+        {
+            objArray[i] = ConvertReturnValue(objArray[i], type);
+        }
+
+        return objArray as Object[];
+    }
+/// <summary>
+/// 类型转换
+/// </summary>
+/// <param name="rawResult"></param>
+/// <param name="type"></param>
+/// <returns></returns>
+/// <exception cref="InvalidCastException"></exception>
+    private object ConvertReturnValue(object rawResult, Type type)
+    {
+        //处理 null：引用类型返回 null，值类型返回默认值
+        if (rawResult == null)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+        //类型已匹配
+        if (rawResult.GetType() == type)
+        {
+            return rawResult;
+        }
+        //可空类型
+        if (Nullable.GetUnderlyingType(type) is Type nullableUnderType)
+        {
+            return Convert.ChangeType(rawResult, nullableUnderType);
+        }
+        //值类型/基础类型转换
+        if (type.IsValueType || type == typeof(string))
+        {
+            return Convert.ChangeType(rawResult, type);
+        }
+        //引用类型转换
+        if (type.IsAssignableFrom(rawResult.GetType()))
+        {
+            return Convert.ChangeType(rawResult, type);
+        }
+        
+        throw new InvalidCastException($"无法将 {rawResult.GetType().Name} 转换为 {type.Name}");
+    }
+    
+    /// <summary>
+    /// 加载指定的资源(资源数组)
+    /// </summary>
+    /// <param name="name"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T[] LoadAssetArray<T>(string name) where T : UnityEngine.Object
+    {
+        string assetBundleName = name.ToLower() + ".u3d";
+
+        //加载依赖的资源包
+        if (allDependDict.ContainsKey(assetBundleName))
+        {
+            string[] dependenceList = allDependDict[assetBundleName];
+            foreach (var item in dependenceList)
+            {
+                //被依赖的资源只要加载到内存中就可以了
+                LoadAssetBundle(item);
+            }
+        }
+        //加载真正需要的资源自己
+        MyAssetBundle my = LoadAssetBundle(assetBundleName);
+        ///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+        T[] t = my.ab.LoadAllAssets<T>();
+        return t;
     }
 
     /// <summary>
