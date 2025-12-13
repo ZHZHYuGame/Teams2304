@@ -112,7 +112,23 @@ public class ABManager : Singleton<ABManager>
             }
         }
     }
+    /// <summary>
+    /// Lua使用AB包加载的中转战
+    /// </summary>
+    /// <param name="name">资源名称</param>
+    /// <param name="Load_Enum">资源类型</param>
+    public void Load_Transfer(string name,string Load_Enum)
+    {
+        switch (Load_Enum)
+        {
+            case "GameObject":
 
+                break;
+            case "Sprite":
+
+                break;
+        }
+    }
     /// <summary>
     /// 加载指定的资源(具体某个资源)
     /// </summary>
@@ -120,7 +136,7 @@ public class ABManager : Singleton<ABManager>
     /// <param name="name"></param>
     /// <returns></returns>
     ///   T           <T>              where T : UnityEngine.Object
-    public GameObject LoadAsset(string name) 
+    public GameObject LoadAsset_GameObject(string name) 
     {
         string assetBundleName = name.ToLower() + ".u3d";
 
@@ -138,6 +154,25 @@ public class ABManager : Singleton<ABManager>
         MyAssetBundle my = LoadAssetBundle(assetBundleName);
         Debug.Log(my);
         return my.ab.LoadAllAssets<GameObject>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+    }
+    public Sprite LoadAsset_Sprite(string name)
+    {
+        string assetBundleName = name.ToLower() + ".u3d";
+
+        //加载依赖的资源包
+        if (allDependDict.ContainsKey(assetBundleName))
+        {
+            string[] dependenceList = allDependDict[assetBundleName];
+            foreach (var item in dependenceList)
+            {
+                //被依赖的资源只要加载到内存中就可以了
+                LoadAssetBundle(item);
+            }
+        }
+        //加载真正需要的资源自己
+        MyAssetBundle my = LoadAssetBundle(assetBundleName);
+        Debug.Log(my);
+        return my.ab.LoadAllAssets<Sprite>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
     }
     public T LoadAsset<T>(string name) where T : UnityEngine.Object
     {
