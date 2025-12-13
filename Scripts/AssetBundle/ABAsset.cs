@@ -12,6 +12,9 @@ public class ABAsset
     {
         string[] abStrArr = abStr.Split('|');
         abName = abStrArr[0];
-        md5 = abStrArr[1];
+        if (abStrArr.Length>1)
+        {
+            md5 = abStrArr[1];
+        }
     }
 }
