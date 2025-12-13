@@ -108,7 +108,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
         UnityWebRequest unityWeb=UnityWebRequest.Get(path);
         
         UnityWebRequestAsyncOperation op = unityWeb.SendWebRequest();
-        Thread.Sleep(100);
+        Thread.Sleep(110);
         if (op.isDone)
         {
             action(unityWeb.downloadHandler.data);
