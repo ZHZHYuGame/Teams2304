@@ -19,7 +19,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     /// <summary>
     /// 资源服务器IP_Tirle
     /// </summary>
-    string http_Server_IP = "127.0.0.1/Game";
+    string http_Server_IP = "http://10.161.25.87/Game";
     /// <summary>
     /// 服务器
     /// </summary>
@@ -250,6 +250,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
             {
                 Directory.CreateDirectory(local_Asset_Path);
             }
+            Debug.Log(load_Asset_Queue.Count);
             //写到对应的本地P目录
             File.WriteAllBytes(local_Asset_Path,data);
             if(load_Asset_Queue.Count>0)
