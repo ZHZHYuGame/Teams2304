@@ -32,7 +32,7 @@ namespace Server_2304
             
             foreach (var item in NetManager.GetInstance().clientsList)
             {
-                NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerOperation,toCMsg.ToByteArray(),item.st);
+                NetManager.GetInstance().SendMessage(NetID.S_To_C_Disconnect,toCMsg.ToByteArray(),item.st);
             }
         }
 
@@ -50,11 +50,10 @@ namespace Server_2304
             msg.Y = cmsg.Y;
             msg.Z = cmsg.Z;
             msg.RoundY=cmsg.RoundY;
-            //Console.WriteLine(msg.RoundY);
             foreach (var item in NetManager.GetInstance().clientsList)
             {
                 NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerOperation,msg.ToByteArray(),item.st);
-                //Console.WriteLine("发送成功");
+              
             }
             
         }

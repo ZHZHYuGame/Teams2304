@@ -201,12 +201,13 @@ public class NetManager:Singleton<NetManager>
             if (item.st == st)
             {
                 clientsList.Remove(item);
+                st.Shutdown(SocketShutdown.Both);
+                st.Close();
                 break;
             }
         }
-        st.Close();
-        st.Dispose();
-        Console.WriteLine("断开成功");
+       
+        Console.WriteLine("剩余链接数量"+clientsList.Count);
     }
 
     public List<Client> Get_ClientList()
