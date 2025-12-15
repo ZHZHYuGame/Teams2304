@@ -14,7 +14,7 @@ public class UIFile_Create_Editor : EditorWindow
     }
 
     string ui_Name;
-
+    UILayer ui_layer;
     private void OnGUI()
     {
 
@@ -22,11 +22,15 @@ public class UIFile_Create_Editor : EditorWindow
         GUILayout.Label("UI -- 功能名称");
         ui_Name = EditorGUILayout.TextField(ui_Name);
         EditorGUILayout.EndHorizontal();
-        
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("UI -- 层级");
+        ui_layer = (UILayer)EditorGUILayout.EnumPopup(ui_layer);
+        EditorGUILayout.EndHorizontal();
+
         if (GUILayout.Button("创建功能文件"))
         {
             //XXXConfig.lua
-            string config_Code_Path = $"{Application.dataPath}/Script/Lua/UI/{ui_Name}/{ui_Name}Config.lua";
+            string config_Code_Path = $"{Application.dataPath}/Lua/UI/{ui_Name}/{ui_Name}Config.lua";
             if (!Directory.Exists(Path.GetDirectoryName(config_Code_Path)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(config_Code_Path));
@@ -35,7 +39,7 @@ public class UIFile_Create_Editor : EditorWindow
             sw_Config.WriteLine($"local UI{ui_Name}Config = {{");
             sw_Config.WriteLine($"\ttype = UITypeEnum.{ui_Name},");
             sw_Config.WriteLine($"\tprefabName = \"UI_Window_{ui_Name }\",");
-            sw_Config.WriteLine($"\tlayer = UILayer.window,");
+            sw_Config.WriteLine($"\tlayer = UILayer.{ui_layer.ToString()},");
             sw_Config.WriteLine($"\tcode_Model = require(\"UI/{ui_Name}/Model/{ui_Name}Model\"),");
             sw_Config.WriteLine($"\tcode_View = require(\"UI/{ui_Name}/View/{ui_Name}View\"),");
             sw_Config.WriteLine($"\tcode_Controll = require(\"UI/{ui_Name}/Controll/{ui_Name}Controll\"),");
@@ -44,7 +48,7 @@ public class UIFile_Create_Editor : EditorWindow
             sw_Config.Flush();
            
             //XXXModel.lua
-            string model_Code_Path = $"{Application.dataPath}/Script/Lua/UI/{ui_Name}/Model/{ui_Name}Model.lua";
+            string model_Code_Path = $"{Application.dataPath}/Lua/UI/{ui_Name}/Model/{ui_Name}Model.lua";
             if (!Directory.Exists(Path.GetDirectoryName(model_Code_Path)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(model_Code_Path));
@@ -60,7 +64,7 @@ public class UIFile_Create_Editor : EditorWindow
             sw_Model.Flush();
 
             //XXXView.lua
-            string view_Code_Path = $"{Application.dataPath}/Script/Lua/UI/{ui_Name}/View/{ui_Name}View.lua";
+            string view_Code_Path = $"{Application.dataPath}/Lua/UI/{ui_Name}/View/{ui_Name}View.lua";
             if (!Directory.Exists(Path.GetDirectoryName(view_Code_Path)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(view_Code_Path));
@@ -80,7 +84,7 @@ public class UIFile_Create_Editor : EditorWindow
             sw_View.Flush();
 
             //XXXControll.lua
-            string controll_Code_Path = $"{Application.dataPath}/Script/Lua/UI/{ui_Name}/Controll/{ui_Name}Controll.lua";
+            string controll_Code_Path = $"{Application.dataPath}/Lua/UI/{ui_Name}/Controll/{ui_Name}Controll.lua";
             if (!Directory.Exists(Path.GetDirectoryName(controll_Code_Path)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(controll_Code_Path));
@@ -103,12 +107,22 @@ public class UIFile_Create_Editor : EditorWindow
             sw_Controll.WriteLine($"return {ui_Name}Controll");
             sw_Controll.Flush();
 
-            string component_Code_Path = $"{Application.dataPath}/Script/Lua/UI/{ui_Name}/Component";
+            string component_Code_Path = $"{Application.dataPath}/Lua/UI/{ui_Name}/Component";
             if (!Directory.Exists(component_Code_Path))
             {
                 Directory.CreateDirectory(component_Code_Path);
             }
         }
 
+    }
+    public enum UILayer
+    {
+        backGroud,
+        window ,
+        tips,
+        systemOpen ,
+        guide ,
+        Loading,
+        http
     }
 }
