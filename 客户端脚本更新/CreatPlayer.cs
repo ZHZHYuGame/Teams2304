@@ -10,7 +10,7 @@ using MyGame;
 public class CreatPlayer : MonoBehaviour
 {
     public static CreatPlayer instance;
-    Dictionary<uint,GameObject>  PlayerDic = new Dictionary<uint, GameObject>();
+     Dictionary<uint,GameObject>  PlayerDic = new Dictionary<uint, GameObject>();
     public GameObject player;
     public static uint PlayerID ; 
     public CinemachineFreeLook playerCamera;
@@ -24,7 +24,7 @@ public class CreatPlayer : MonoBehaviour
         //PlayerID = 156;
         MessageControll.GetInstance().AddListener(NetID.S_To_C_PlayerOperation,RushPlayer);
         MessageControll.GetInstance().AddListener(NetID.S_To_C_Disconnect,S_To_C_DisconnectHandle);
-        
+        BulletMgr.GetInstance().Init();
         
     }
     /// <summary>
@@ -51,13 +51,11 @@ public class CreatPlayer : MonoBehaviour
         msg.PlayerId = PlayerID;
         player = Instantiate(Resources.Load<GameObject>("Role/1"));
         NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerOperation,msg.ToByteArray());
+        player.AddComponent<Player>().Init(PlayerID);
         
         if (playerCamera == null)
         {
             playerCamera = Instantiate(Resources.Load<CinemachineFreeLook>("FreeLook Camera"));
-            
-            playerCamera.Follow = player.transform;
-            playerCamera.LookAt = player.transform;
         }
     }
 
@@ -88,65 +86,53 @@ public class CreatPlayer : MonoBehaviour
     private float verticalAngle = 0f;
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        //移动
-        Vector3 mainForward = Camera.main.transform.forward;
-        mainForward.y = 0;
-        Vector3 mainRight = Camera.main.transform.right;
-        mainRight.y = 0;
-        Vector3 moveDir = (mainForward*v+mainRight*h).normalized;
-        player.transform.Translate(moveDir*Time.deltaTime*5,Space.World);
-        player.transform.LookAt(player.transform.position+moveDir);
-        
-
         LockMouse();
         
+        BulletMgr.GetInstance().BiuUpdate();
         //每秒30次更新位置
-        timer += Time.deltaTime;
-        if (timer>=0.033)
-        {
-            timer=0.0f;
-            C_To_S_PlayerOperation msg=new C_To_S_PlayerOperation();
-            msg.PlayerId = PlayerID;
-            msg.X=player.transform.position.x;
-            msg.Y=player.transform.position.y;
-            msg.Z=player.transform.position.z;
-            msg.RoundY=player.transform.rotation.eulerAngles.y;
-            NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerOperation,msg.ToByteArray());
-        }
+        
     }
     private bool ishide;
     private void LockMouse()
     {
-        
         if (Input.GetMouseButtonDown(0))
         {
-                Debug.Log("隐藏鼠标图标");
                 ishide=true;
                 Cursor.visible = false; // 隐藏鼠标图标
                 Cursor.lockState = CursorLockMode.Locked; // 锁定鼠标到屏幕中心，且鼠标移动仅输出增量（无实际位置移动）
+                
+                playerCamera.Follow = player.transform;
+                playerCamera.LookAt = player.transform;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("显示鼠标图标");
             ishide = false;
             Cursor.visible = true; // 显示鼠标图标
             Cursor.lockState = CursorLockMode.None; // 解除锁定，鼠标可自由移动
+            
+            playerCamera.Follow =null;
+            playerCamera.LookAt = null;
         }
         
     }
 
-    private void LateUpdate()
+    public Transform GetPlayer(uint playerID)
     {
-        //Camera.main.transform.position = player.transform.position+new Vector3(0,1,-5);
-    }
+        foreach (var item in PlayerDic)
+        {
+            if (item.Key == playerID)
+            {
+                return item.Value.transform;
+            }
+        }
 
+        return null;
+    }
+    
     void OnApplicationQuit()
     {
         Debug.Log("你已断开连接");
-        
         C_To_S_Disconnect msg = new C_To_S_Disconnect();
         msg.PlayerId = PlayerID;
         NetManager.GetInstance().SendMessage(NetID.C_To_S_Disconnect,msg.ToByteArray());
