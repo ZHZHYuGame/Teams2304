@@ -1,0 +1,36 @@
+syntax = "proto3";
+package myGame;
+
+//玩家状态
+enum PlayerType
+{
+  None=0;
+  Walk=1;
+  Run=2;
+  Jump=3;
+}
+
+//玩家数据
+message C_To_S_PlayerOperation
+{
+  uint32 playerId = 1;
+  float x =2;
+  float y =3;
+  float z =4;
+  float roundY =5;
+}
+
+//玩家数据
+message S_To_C_PlayerOperation
+{
+  uint32 playerId = 1;
+  float x =2;
+  float y =3;
+  float z =4;
+  float roundY =5;
+}
+
+
+
+
+
