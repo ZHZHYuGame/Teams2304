@@ -10,7 +10,7 @@ enum PlayerType
   Jump=3;
 }
 
-//玩家数据
+//玩家位置数据
 message C_To_S_PlayerOperation
 {
   uint32 playerId = 1;
@@ -20,7 +20,7 @@ message C_To_S_PlayerOperation
   float roundY =5;
 }
 
-//玩家数据
+//玩家位置数据
 message S_To_C_PlayerOperation
 {
   uint32 playerId = 1;
@@ -30,7 +30,10 @@ message S_To_C_PlayerOperation
   float roundY =5;
 }
 
-
-
+//玩家断开链接
+message C_To_S_Disconnect
+{
+	uint32 playerId = 1;
+}
 
 
