@@ -60,7 +60,14 @@ public class AssetBundlePackagemgr : Editor
                 case ".mp4":
                     abName = $"Audio/{abName}";
                     break;
+                case ".jpg":
+                    abName = $"Jpg/{abName}";
+                    break;
+                case ".png":
+                    abName = $"Png/{abName}";
+                    break;
             }
+            
 
             AssetImporter importer = AssetImporter.GetAtPath(packPath);
             importer.assetBundleName = abName;
