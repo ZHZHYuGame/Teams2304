@@ -1,9 +1,0 @@
-D:\Enemy\demo专业\kami_demo\kami_demo\bin\Debug\kami_demo.exe.config
-D:\Enemy\demo专业\kami_demo\kami_demo\bin\Debug\kami_demo.exe
-D:\Enemy\demo专业\kami_demo\kami_demo\bin\Debug\kami_demo.pdb
-D:\Enemy\demo专业\kami_demo\kami_demo\bin\Debug\Newtonsoft.Json.dll
-D:\Enemy\demo专业\kami_demo\kami_demo\obj\Debug\kami_demo.csproj.AssemblyReference.cache
-D:\Enemy\demo专业\kami_demo\kami_demo\obj\Debug\kami_demo.csproj.CoreCompileInputs.cache
-D:\Enemy\demo专业\kami_demo\kami_demo\obj\Debug\kami_demo.csproj.Up2Date
-D:\Enemy\demo专业\kami_demo\kami_demo\obj\Debug\kami_demo.exe
-D:\Enemy\demo专业\kami_demo\kami_demo\obj\Debug\kami_demo.pdb
