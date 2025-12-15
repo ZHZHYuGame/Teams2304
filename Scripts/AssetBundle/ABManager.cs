@@ -54,19 +54,19 @@ public class ABManager : Singleton<ABManager>
 
     GameObject m_obj;
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (m_obj==null)
-            {
-                string mPath = Application.streamingAssetsPath + "/AssetBundle/materi.u3d";
-                AssetBundle aBundle=  AssetBundle.LoadFromFile(mPath);
-                m_obj = aBundle.LoadAsset<GameObject>("materi");
-            }
-            GameObject.Instantiate(m_obj);
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        if (m_obj==null)
+    //        {
+    //            string mPath = Application.streamingAssetsPath + "/AssetBundle/materi.u3d";
+    //            AssetBundle aBundle=  AssetBundle.LoadFromFile(mPath);
+    //            m_obj = aBundle.LoadAsset<GameObject>("materi");
+    //        }
+    //        GameObject.Instantiate(m_obj);
+    //    }
+    //}
 
     /// <summary>
     /// ab包的缓存
@@ -155,6 +155,11 @@ public class ABManager : Singleton<ABManager>
         Debug.Log(my);
         return my.ab.LoadAllAssets<GameObject>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
     }
+    /// <summary>
+    /// 加载不在图集中Sprite
+    /// </summary>
+    /// <param name="name">AB包名</param>
+    /// <returns></returns>
     public Sprite LoadAsset_Sprite(string name)
     {
         string assetBundleName = name.ToLower() + ".u3d";
@@ -173,6 +178,30 @@ public class ABManager : Singleton<ABManager>
         MyAssetBundle my = LoadAssetBundle(assetBundleName);
         Debug.Log(my);
         return my.ab.LoadAllAssets<Sprite>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+    }
+    /// <summary>
+    /// 加载图集中Sprite
+    /// </summary>
+    /// <param name="Atlas_Name">AB包名</param>
+    /// <param name="Sprite_Name">Sprit名</param>
+    /// <returns></returns>
+    public Sprite LoadAsset_Atlas_Sprite(string Atlas_Name,string Sprite_Name)
+    {
+        string assetBundleName = Atlas_Name.ToLower() + ".u3d";
+        if (allDependDict.ContainsKey(assetBundleName))
+        {
+            string[] dependenceList = allDependDict[assetBundleName];
+            foreach (var item in dependenceList)
+            {
+                //被依赖的资源只要加载到内存中就可以了
+                LoadAssetBundle(item);
+            }
+        }
+        MyAssetBundle my = LoadAssetBundle(assetBundleName);
+        Debug.Log(my);
+        Sprite[] sprites = my.ab.LoadAssetWithSubAssets<Sprite>(assetBundleName);
+        Sprite sprite = System.Array.Find(sprites, item => item.name == Sprite_Name);
+        return sprite;
     }
     public T LoadAsset<T>(string name) where T : UnityEngine.Object
     {
