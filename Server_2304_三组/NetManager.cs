@@ -11,15 +11,15 @@ public class NetManager:Singleton<NetManager>
 {
     Socket socket;
 
-    byte[] data = new byte[1024];
     /// <summary>
     /// 用来存储数据(粘包)
     /// </summary>
-    private MyMemoryStream myStream = new MyMemoryStream();
+    /// 
     /// <summary>
     /// 管理所有客户端
     /// </summary>
     public List<Client> clientsList = new List<Client>();
+    public readonly object _obj = new object();
     public void Start()
     {
         //单一服务器
@@ -50,73 +50,82 @@ public class NetManager:Singleton<NetManager>
             ip = ip.Address.ToString(),
             prot = ip.Port,
             st = st,
-            name = ""
+            name = "",
+            data = new byte[1024],
+            myStream = new MyMemoryStream(),
         };
+        lock (_obj)
+        {
+            clientsList.Add(c);
+        }
+        
 
-        clientsList.Add(c);
-
-        st.BeginReceive(data, 0, data.Length, SocketFlags.None, ReceiveHandle, st);
+        st.BeginReceive(c.data, 0, c.data.Length, SocketFlags.None, ReceiveHandle, c);
 
         socket.BeginAccept(AcceptHandle, socket);
     }
 
     private void ReceiveHandle(IAsyncResult ar)
     {
-        Socket st = ar.AsyncState as Socket;
+        Client cl = ar.AsyncState as Client;
+        if (cl == null||cl.st==null)return;
+        
         try
         {
-            int dataLen = st.EndReceive(ar);
+            
+            int dataLen = cl.st.EndReceive(ar);
             //接收客户端数据成功
             if (dataLen > 0)
             {
+               
                 //与客户端同步数据组成，数据拆分的结构、数据对应位置数据类型
                 byte[] r_Bytes = new byte[dataLen];
                 
-                Buffer.BlockCopy(data, 0, r_Bytes, 0, dataLen);
+                Buffer.BlockCopy(cl.data, 0, r_Bytes, 0, dataLen);
                 //如有剩余未处理的包，则在包的后面进入写入
-                myStream.Position = myStream.Length;
+                cl.myStream.Position = cl.myStream.Length;
                 //数据已经存进来了
-                myStream.Write(r_Bytes, 0, r_Bytes.Length);
+                cl.myStream.Write(r_Bytes, 0, r_Bytes.Length);
                 //判断是不是到少有一个不完整的包(为什么？因为还没到判断完整包的地方)
-                while (myStream.Length >= 2)
+                while (cl.myStream.Length >= 2)
                 {
                     //现在位置在写入数据的长度的位置
-                    myStream.Position = 0;
+                    cl.myStream.Position = 0;
                     //包头的值 = 包体的长度
-                    ushort titleLen = myStream.ReadUshort();
+                    ushort titleLen = cl.myStream.ReadUshort();
                     //包的整体长度
                     int allLen = titleLen + 2;
                     //这里才是判断是不是有一个可以处理的完整的包
-                    if (myStream.Length >= allLen)
+                    if (cl.myStream.Length >= allLen)
                     {
                         //这里已经开始读消息的内容(id + 内容)
                         byte[] tampData = new byte[titleLen];
-                        myStream.Read(tampData, 0, tampData.Length);
+                        cl.myStream.Read(tampData, 0, tampData.Length);
 
                         int netID = BitConverter.ToInt32(tampData, 0);
                         //内容
                         byte[] descByte = new byte[tampData.Length - 4];
                         Buffer.BlockCopy(tampData, 4, descByte, 0, descByte.Length);
-                        MessageControll.GetInstance().Dispach(netID, descByte, st, 1, "", true);
+                        MessageControll.GetInstance().Dispach(netID, descByte, cl.st, 1, "", true);
 
-                        int shLen = (int)myStream.Length - allLen;
+                        int shLen = (int)cl.myStream.Length - allLen;
                         //还有未处理完的数据包
                         if (shLen > 0)
                         {
                             //存剩余数据
                             byte[] shData = new byte[shLen];
-                            myStream.Read(shData, 0, shData.Length);
+                            cl.myStream.Read(shData, 0, shData.Length);
                             //请空流
-                            myStream.Position = 0;
-                            myStream.SetLength(0);
+                            cl.myStream.Position = 0;
+                            cl.myStream.SetLength(0);
                             //将剩余的数据写到缓冲区
-                            myStream.Write(shData, 0, shData.Length);
+                            cl.myStream.Write(shData, 0, shData.Length);
                         }
                         else
                         {
                             //请空流
-                            myStream.Position = 0;
-                            myStream.SetLength(0);
+                            cl.myStream.Position = 0;
+                            cl.myStream.SetLength(0);
                             break;
                         }
                     }
@@ -125,18 +134,19 @@ public class NetManager:Singleton<NetManager>
                         break;
                     }
                 }
-                st.BeginReceive(data, 0, data.Length, SocketFlags.None, ReceiveHandle, st);
+                cl.st.BeginReceive(cl.data, 0, cl.data.Length, SocketFlags.None, ReceiveHandle, cl);
             }
             //接收客户端数据异常
             else
             {
-                //删除客户端连接
-
+                
             }
         }
         catch (Exception)
         {
-
+            Console.WriteLine("断开");
+            //删除客户端连接
+            RevomeSt(cl.st);
         }
         
     }
@@ -203,6 +213,7 @@ public class NetManager:Singleton<NetManager>
                 clientsList.Remove(item);
                 st.Shutdown(SocketShutdown.Both);
                 st.Close();
+                st = null;
                 break;
             }
         }
@@ -224,4 +235,6 @@ public class Client
     public string ip;
     public int prot;
     public string name;
+    public byte[] data =  new byte[1024];
+    public MyMemoryStream myStream = new MyMemoryStream();
 }

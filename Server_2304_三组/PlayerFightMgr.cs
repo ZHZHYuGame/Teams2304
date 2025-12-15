@@ -41,7 +41,7 @@ namespace Server_2304
             object[] ooo = obj as object[];
             Socket st = ooo[1] as Socket;
             C_To_S_PlayerOperation cmsg=C_To_S_PlayerOperation.Parser.ParseFrom(ooo[0] as byte[]);
-            
+           
             
             S_To_C_PlayerOperation msg = new S_To_C_PlayerOperation();
             Console.WriteLine(cmsg.PlayerId);
