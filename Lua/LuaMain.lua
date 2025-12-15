@@ -12,10 +12,14 @@ _G.UImgr:Init()
 require("GameEnum/UILayer")
 require("GameEnum/UITypeEnum")
 require("UI/UIConfigMgr")
+-- require("Net/NetID")
 
+
+local bagbtn
 function LuaStart()
     _G.UImgr:ShowUI(UITypeEnum.main)
     _G.UImgr:ShowUI(UITypeEnum.shop)
+    --_G.UImgr:ShowUI(UITypeEnum.bag)
 end
 
 function LuaUpdata()

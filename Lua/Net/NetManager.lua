@@ -10,7 +10,9 @@ function NetManager:Handle_Net_Msg(netData)
         s_Msg = MyGame.S_To_C_Main.Parser:ParseFrom(netData.byteData)
     elseif netData.netID == NetID.S_To_C_ShopGoods then
         s_Msg = MyGame.S_To_C_ShopGoods.Parser:ParseFrom(netData.byteData)
-    
+    else if netData.netID==NetID.S_To_C_BagGoods then
+            s_Msg = MyGame.S_To_C_BagGoods.Parser:ParseFrom(netData.byteData)
+        end
     end
    
     
