@@ -35,5 +35,10 @@ message C_To_S_Disconnect
 {
 	uint32 playerId = 1;
 }
+//玩家断开链接
+message S_To_C_Disconnect
+{
+	uint32 playerId = 1;
+}
 
 
