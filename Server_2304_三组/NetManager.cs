@@ -194,6 +194,20 @@ public class NetManager:Singleton<NetManager>
         }
     }
 
+    public void RevomeSt(Socket st)
+    {
+        foreach (var item in clientsList)
+        {
+            if (item.st == st)
+            {
+                clientsList.Remove(item);
+                break;
+            }
+        }
+        st.Close();
+        st.Dispose();
+    }
+
     public List<Client> Get_ClientList()
     {
         return clientsList;

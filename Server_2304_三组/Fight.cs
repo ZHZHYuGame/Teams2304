@@ -23,7 +23,7 @@ namespace MyGame {
 
   #region Messages
   /// <summary>
-  ///玩家数据
+  ///玩家位置数据
   /// </summary>
   public sealed class C_To_S_PlayerOperation : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_PlayerOperation> _parser = new pb::MessageParser<C_To_S_PlayerOperation>(() => new C_To_S_PlayerOperation());
@@ -165,7 +165,7 @@ namespace MyGame {
   }
 
   /// <summary>
-  ///玩家数据
+  ///玩家位置数据
   /// </summary>
   public sealed class S_To_C_PlayerOperation : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_PlayerOperation> _parser = new pb::MessageParser<S_To_C_PlayerOperation>(() => new S_To_C_PlayerOperation());
@@ -298,6 +298,114 @@ namespace MyGame {
           }
           case 45: {
             RoundY = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家断开链接
+  /// </summary>
+  public sealed class C_To_S_Disconnect : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_Disconnect> _parser = new pb::MessageParser<C_To_S_Disconnect>(() => new C_To_S_Disconnect());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_Disconnect> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家断开链接
+  /// </summary>
+  public sealed class S_To_C_Disconnect : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_Disconnect> _parser = new pb::MessageParser<S_To_C_Disconnect>(() => new S_To_C_Disconnect());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_Disconnect> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
             break;
           }
         }

@@ -15,6 +15,25 @@ namespace Server_2304
         public void Init()
         {
             MessageControll.GetInstance().AddListener(NetID.C_To_S_PlayerOperation,InitPlayer);
+            MessageControll.GetInstance().AddListener(NetID.C_To_S_Disconnect,DisconnectPlayer);
+        }
+
+        private void DisconnectPlayer(object o)
+        {
+            object[] objs = o as object[];
+            Byte[] bytes = objs[0] as Byte[];
+            Socket st = objs[1] as Socket;
+            
+            C_To_S_Disconnect msg =C_To_S_Disconnect.Parser.ParseFrom(bytes);
+            S_To_C_Disconnect toCMsg = new S_To_C_Disconnect();
+            toCMsg.PlayerId = msg.PlayerId;
+            
+            NetManager.GetInstance().RevomeSt(st);
+            
+            foreach (var item in NetManager.GetInstance().clientsList)
+            {
+                NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerOperation,toCMsg.ToByteArray(),item.st);
+            }
         }
 
         private void InitPlayer(object obj)
