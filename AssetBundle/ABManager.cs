@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -22,7 +23,7 @@ public class ABManager : Singleton<ABManager>
     private string abPath;
     public void OnInit()
     {
-        abPath = $"{Application.streamingAssetsPath}/{Application.version}";
+        abPath = $"{Application.persistentDataPath}/{Application.version}";
         InitDependence();
     }
     /// <summary>
