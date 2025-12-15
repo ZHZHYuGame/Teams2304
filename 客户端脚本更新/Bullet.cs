@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     private float timer;
     void Update()
     {
-        transform.transform.Translate(transform.forward * Time.deltaTime*50);
+        transform.transform.Translate(transform.forward * Time.deltaTime*20,Space.World);
         timer  += Time.deltaTime;
         if (timer >=0.033f)
         {
@@ -31,5 +31,12 @@ public class Bullet : MonoBehaviour
     {
         this.playerID = playerID;
         this.bulletID =  bulletID;
+        Invoke("Remove",5);
+    }
+
+    void Remove()
+    {
+        PlayerNetMgr.GetInstance().RemoveBullet(bulletID);
+        Destroy(gameObject);
     }
 }

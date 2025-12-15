@@ -22,4 +22,14 @@ public class PlayerNetMgr : Singleton<PlayerNetMgr>
         msg.RoundY=player.rotation.eulerAngles.y;
         NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerOperation,msg.ToByteArray());
     }
+    /// <summary>
+    ///通知其他人删除自己的子弹
+    /// </summary>
+    /// <param name="bulletID"></param>
+    public void RemoveBullet(uint bulletID)
+    {
+        C_To_S_RemoveBullet csMsg = new C_To_S_RemoveBullet();
+        csMsg.BulletID=bulletID;
+        NetManager.GetInstance().SendMessage(NetID.C_To_S_ReomveBullet,csMsg.ToByteArray());
+    }
 }
