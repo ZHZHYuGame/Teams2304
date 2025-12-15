@@ -24,7 +24,7 @@ function uiManager:ShowUI(uiType)
         local uiConfigData = UIConfigMgr[uiType]
        
         --预制件信息,所属层集
-        local uiPre =GameObject.Instantiate(ABManager.GetInstance():LoadAsset_GameObject(string.lower(uiConfigData.prefabName)), UILayer.window.transform)
+        local uiPre = GameObject.Instantiate(ABManager.GetInstance():LoadAsset_GameObject(string.lower(uiConfigData.prefabName)), UILayer.window.transform)
         --Code代码，MVC层代码初始化
         uiConfigData.code_Controll.New()
         uiConfigData.code_Model.New()

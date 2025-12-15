@@ -6,7 +6,13 @@ function NetManager:Init()
 end
 function NetManager:Handle_Net_Msg(netData)
     local s_Msg = nil
-
+    if netData.netID == NetID.S_To_C_Main then
+        s_Msg = MyGame.S_To_C_Main.Parser:ParseFrom(netData.byteData)
+    elseif netData.netID == NetID.S_To_C_ShopGoods then
+        s_Msg = MyGame.S_To_C_ShopGoods.Parser:ParseFrom(netData.byteData)
+    
+    end
+   
     
     -- 分发消息到NetMessageControll
     NetMessageControll:Dispatch(netData.netID, s_Msg)

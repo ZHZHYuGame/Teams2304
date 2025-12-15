@@ -1,0 +1,190 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\manager\\netmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:manager\\netmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\manager\\shopmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:manager\\shopmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|c:\\users\\28213\\onedrive\\\u684C\u9762\\server_bwonline\\manager\\mainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:manager\\mainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\net\\netid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:net\\netid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\manager\\configmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:manager\\configmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:singleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\net\\proto\\goods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:net\\proto\\goods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\net\\proto\\mainpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:net\\proto\\mainpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\messagecontroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:messagecontroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2A91CC1-C547-472E-8350-629CC9CDBE16}|Server_BWOnline.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainManager.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\MainManager.cs",
+              "RelativeDocumentMoniker": "Manager\\MainManager.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\MainManager.cs",
+              "RelativeToolTip": "Manager\\MainManager.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-15T02:08:24.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ShopManager.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\ShopManager.cs",
+              "RelativeDocumentMoniker": "Manager\\ShopManager.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\ShopManager.cs",
+              "RelativeToolTip": "Manager\\ShopManager.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAUwA8AAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T02:02:41.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConfigManager.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\ConfigManager.cs",
+              "RelativeDocumentMoniker": "Manager\\ConfigManager.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\ConfigManager.cs",
+              "RelativeToolTip": "Manager\\ConfigManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T02:00:15.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Goods.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\Proto\\Goods.cs",
+              "RelativeDocumentMoniker": "Net\\Proto\\Goods.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\Proto\\Goods.cs",
+              "RelativeToolTip": "Net\\Proto\\Goods.cs",
+              "ViewState": "AgIAAGsBAAAAAAAAAAAiwG4BAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T10:42:10.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MessageControll.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\MessageControll.cs",
+              "RelativeDocumentMoniker": "MessageControll.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\MessageControll.cs",
+              "RelativeToolTip": "MessageControll.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T10:29:09.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainPanel.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\Proto\\MainPanel.cs",
+              "RelativeDocumentMoniker": "Net\\Proto\\MainPanel.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\Proto\\MainPanel.cs",
+              "RelativeToolTip": "Net\\Proto\\MainPanel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T10:29:06.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NetManager.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\NetManager.cs",
+              "RelativeDocumentMoniker": "Manager\\NetManager.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Manager\\NetManager.cs",
+              "RelativeToolTip": "Manager\\NetManager.cs",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAUwJIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:44:42.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NetID.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\NetID.cs",
+              "RelativeDocumentMoniker": "Net\\NetID.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Net\\NetID.cs",
+              "RelativeToolTip": "Net\\NetID.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:42:57.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Singleton.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Singleton.cs",
+              "RelativeDocumentMoniker": "Singleton.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Singleton.cs",
+              "RelativeToolTip": "Singleton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:42:45.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\28213\\OneDrive\\\u684C\u9762\\Server_BWOnline\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:42:24.253Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
