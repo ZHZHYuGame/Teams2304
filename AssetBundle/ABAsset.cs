@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 /// <summary>
-/// AB包的结构
+/// AB锟斤拷锟侥结构
 /// </summary>
 public class ABAsset
 {
     public string abName;
     public string md5;
-
+    public string abDirectory;
     public ABAsset(string abStr)
     {
         string[] abStrArr = abStr.Split('|');
         abName = abStrArr[0];
+        //鑾峰彇鐩綍
+        StringBuilder sb = new StringBuilder();
+        string[] abDirectoryArr = abStrArr[0].Split('/');
+        for (int i = 0; i < abDirectoryArr.Length -1; i++)
+        {
+            sb.Append($"{abDirectoryArr[i]}/");
+        }
+        abDirectory = sb.ToString();
         md5 = abStrArr[1];
     }
 }
