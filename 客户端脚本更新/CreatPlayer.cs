@@ -87,8 +87,6 @@ public class CreatPlayer : MonoBehaviour
     void Update()
     {
         LockMouse();
-        
-        BulletMgr.GetInstance().BiuUpdate();
         //每秒30次更新位置
         
     }
