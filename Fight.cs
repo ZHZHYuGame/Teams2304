@@ -802,6 +802,108 @@ namespace MyGame {
 
   }
 
+  public sealed class C_To_S_RemoveBullet : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_RemoveBullet> _parser = new pb::MessageParser<C_To_S_RemoveBullet>(() => new C_To_S_RemoveBullet());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_RemoveBullet> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "BulletID" field.</summary>
+    public const int BulletIDFieldNumber = 6;
+    private uint bulletID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint BulletID {
+      get { return bulletID_; }
+      set {
+        bulletID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (BulletID != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(BulletID);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (BulletID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 48: {
+            BulletID = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class S_To_C_RemoveBullet : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_RemoveBullet> _parser = new pb::MessageParser<S_To_C_RemoveBullet>(() => new S_To_C_RemoveBullet());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_RemoveBullet> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "BulletID" field.</summary>
+    public const int BulletIDFieldNumber = 6;
+    private uint bulletID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint BulletID {
+      get { return bulletID_; }
+      set {
+        bulletID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (BulletID != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(BulletID);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (BulletID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 48: {
+            BulletID = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   #endregion
 
 }

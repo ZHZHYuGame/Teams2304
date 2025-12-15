@@ -17,8 +17,9 @@ namespace Server_2304
             object[] objs = obj as object[];
             byte[] bytes = objs[0] as byte[];
             Socket st = objs[1] as Socket;
-            
-            
+            C_To_S_RemoveBullet csMsg = C_To_S_RemoveBullet.Parser.ParseFrom(bytes);
+            S_To_C_RemoveBullet scMsg = new  S_To_C_RemoveBullet();
+            scMsg.BulletID = csMsg.BulletID;
             
             foreach (var item in NetManager.GetInstance().clientsList)
             {
