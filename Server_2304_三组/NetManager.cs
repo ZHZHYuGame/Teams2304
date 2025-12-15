@@ -206,6 +206,7 @@ public class NetManager:Singleton<NetManager>
         }
         st.Close();
         st.Dispose();
+        Console.WriteLine("断开成功");
     }
 
     public List<Client> Get_ClientList()
