@@ -1,6 +1,5 @@
-UITypeEnum={
-    bag=1,
-    shop=2,
-    task=3
-
+UITypeEnum = {
+    bag = 1,
+    shop = 2,
+    main = 3,
 }
