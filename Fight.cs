@@ -23,7 +23,7 @@ namespace MyGame {
 
   #region Messages
   /// <summary>
-  ///玩家数据
+  ///玩家位置数据
   /// </summary>
   public sealed class C_To_S_PlayerOperation : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_PlayerOperation> _parser = new pb::MessageParser<C_To_S_PlayerOperation>(() => new C_To_S_PlayerOperation());
@@ -43,9 +43,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 2;
-    private int x_;
+    private float x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int X {
+    public float X {
       get { return x_; }
       set {
         x_ = value;
@@ -54,9 +54,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 3;
-    private int y_;
+    private float y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Y {
+    public float Y {
       get { return y_; }
       set {
         y_ = value;
@@ -65,9 +65,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "z" field.</summary>
     public const int ZFieldNumber = 4;
-    private int z_;
+    private float z_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Z {
+    public float Z {
       get { return z_; }
       set {
         z_ = value;
@@ -76,9 +76,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "roundY" field.</summary>
     public const int RoundYFieldNumber = 5;
-    private int roundY_;
+    private float roundY_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoundY {
+    public float RoundY {
       get { return roundY_; }
       set {
         roundY_ = value;
@@ -91,21 +91,21 @@ namespace MyGame {
         output.WriteRawTag(8);
         output.WriteUInt32(PlayerId);
       }
-      if (X != 0) {
+      if (X != 0F) {
         output.WriteRawTag(21);
-        output.WriteSFixed32(X);
+        output.WriteFloat(X);
       }
-      if (Y != 0) {
+      if (Y != 0F) {
         output.WriteRawTag(29);
-        output.WriteSFixed32(Y);
+        output.WriteFloat(Y);
       }
-      if (Z != 0) {
+      if (Z != 0F) {
         output.WriteRawTag(37);
-        output.WriteSFixed32(Z);
+        output.WriteFloat(Z);
       }
-      if (RoundY != 0) {
+      if (RoundY != 0F) {
         output.WriteRawTag(45);
-        output.WriteSFixed32(RoundY);
+        output.WriteFloat(RoundY);
       }
     }
 
@@ -115,16 +115,16 @@ namespace MyGame {
       if (PlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
       }
-      if (X != 0) {
+      if (X != 0F) {
         size += 1 + 4;
       }
-      if (Y != 0) {
+      if (Y != 0F) {
         size += 1 + 4;
       }
-      if (Z != 0) {
+      if (Z != 0F) {
         size += 1 + 4;
       }
-      if (RoundY != 0) {
+      if (RoundY != 0F) {
         size += 1 + 4;
       }
       return size;
@@ -143,19 +143,19 @@ namespace MyGame {
             break;
           }
           case 21: {
-            X = input.ReadSFixed32();
+            X = input.ReadFloat();
             break;
           }
           case 29: {
-            Y = input.ReadSFixed32();
+            Y = input.ReadFloat();
             break;
           }
           case 37: {
-            Z = input.ReadSFixed32();
+            Z = input.ReadFloat();
             break;
           }
           case 45: {
-            RoundY = input.ReadSFixed32();
+            RoundY = input.ReadFloat();
             break;
           }
         }
@@ -165,7 +165,7 @@ namespace MyGame {
   }
 
   /// <summary>
-  ///玩家数据
+  ///玩家位置数据
   /// </summary>
   public sealed class S_To_C_PlayerOperation : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_PlayerOperation> _parser = new pb::MessageParser<S_To_C_PlayerOperation>(() => new S_To_C_PlayerOperation());
@@ -185,9 +185,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 2;
-    private int x_;
+    private float x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int X {
+    public float X {
       get { return x_; }
       set {
         x_ = value;
@@ -196,9 +196,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 3;
-    private int y_;
+    private float y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Y {
+    public float Y {
       get { return y_; }
       set {
         y_ = value;
@@ -207,9 +207,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "z" field.</summary>
     public const int ZFieldNumber = 4;
-    private int z_;
+    private float z_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Z {
+    public float Z {
       get { return z_; }
       set {
         z_ = value;
@@ -218,12 +218,45 @@ namespace MyGame {
 
     /// <summary>Field number for the "roundY" field.</summary>
     public const int RoundYFieldNumber = 5;
-    private int roundY_;
+    private float roundY_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RoundY {
+    public float RoundY {
       get { return roundY_; }
       set {
         roundY_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "PathName" field.</summary>
+    public const int PathNameFieldNumber = 6;
+    private string pathName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string PathName {
+      get { return pathName_; }
+      set {
+        pathName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Name" field.</summary>
+    public const int NameFieldNumber = 7;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "hp" field.</summary>
+    public const int HpFieldNumber = 8;
+    private int hp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Hp {
+      get { return hp_; }
+      set {
+        hp_ = value;
       }
     }
 
@@ -233,21 +266,33 @@ namespace MyGame {
         output.WriteRawTag(8);
         output.WriteUInt32(PlayerId);
       }
-      if (X != 0) {
+      if (X != 0F) {
         output.WriteRawTag(21);
-        output.WriteSFixed32(X);
+        output.WriteFloat(X);
       }
-      if (Y != 0) {
+      if (Y != 0F) {
         output.WriteRawTag(29);
-        output.WriteSFixed32(Y);
+        output.WriteFloat(Y);
       }
-      if (Z != 0) {
+      if (Z != 0F) {
         output.WriteRawTag(37);
-        output.WriteSFixed32(Z);
+        output.WriteFloat(Z);
       }
-      if (RoundY != 0) {
+      if (RoundY != 0F) {
         output.WriteRawTag(45);
-        output.WriteSFixed32(RoundY);
+        output.WriteFloat(RoundY);
+      }
+      if (PathName.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(PathName);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(Name);
+      }
+      if (Hp != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Hp);
       }
     }
 
@@ -257,17 +302,26 @@ namespace MyGame {
       if (PlayerId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
       }
-      if (X != 0) {
+      if (X != 0F) {
         size += 1 + 4;
       }
-      if (Y != 0) {
+      if (Y != 0F) {
         size += 1 + 4;
       }
-      if (Z != 0) {
+      if (Z != 0F) {
         size += 1 + 4;
       }
-      if (RoundY != 0) {
+      if (RoundY != 0F) {
         size += 1 + 4;
+      }
+      if (PathName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(PathName);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Hp != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Hp);
       }
       return size;
     }
@@ -285,19 +339,461 @@ namespace MyGame {
             break;
           }
           case 21: {
-            X = input.ReadSFixed32();
+            X = input.ReadFloat();
             break;
           }
           case 29: {
-            Y = input.ReadSFixed32();
+            Y = input.ReadFloat();
             break;
           }
           case 37: {
-            Z = input.ReadSFixed32();
+            Z = input.ReadFloat();
             break;
           }
           case 45: {
-            RoundY = input.ReadSFixed32();
+            RoundY = input.ReadFloat();
+            break;
+          }
+          case 50: {
+            PathName = input.ReadString();
+            break;
+          }
+          case 58: {
+            Name = input.ReadString();
+            break;
+          }
+          case 64: {
+            Hp = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家断开链接
+  /// </summary>
+  public sealed class C_To_S_Disconnect : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_Disconnect> _parser = new pb::MessageParser<C_To_S_Disconnect>(() => new C_To_S_Disconnect());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_Disconnect> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家断开链接
+  /// </summary>
+  public sealed class S_To_C_Disconnect : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_Disconnect> _parser = new pb::MessageParser<S_To_C_Disconnect>(() => new S_To_C_Disconnect());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_Disconnect> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class C_To_S_Bullet : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_Bullet> _parser = new pb::MessageParser<C_To_S_Bullet>(() => new C_To_S_Bullet());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_Bullet> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 2;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 3;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "z" field.</summary>
+    public const int ZFieldNumber = 4;
+    private float z_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Z {
+      get { return z_; }
+      set {
+        z_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "atk" field.</summary>
+    public const int AtkFieldNumber = 5;
+    private int atk_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Atk {
+      get { return atk_; }
+      set {
+        atk_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "BulletID" field.</summary>
+    public const int BulletIDFieldNumber = 6;
+    private uint bulletID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint BulletID {
+      get { return bulletID_; }
+      set {
+        bulletID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+      if (X != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Y);
+      }
+      if (Z != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Z);
+      }
+      if (Atk != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Atk);
+      }
+      if (BulletID != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(BulletID);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      if (Z != 0F) {
+        size += 1 + 4;
+      }
+      if (Atk != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Atk);
+      }
+      if (BulletID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+          case 21: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Y = input.ReadFloat();
+            break;
+          }
+          case 37: {
+            Z = input.ReadFloat();
+            break;
+          }
+          case 40: {
+            Atk = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            BulletID = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class S_To_C_Bullet : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_Bullet> _parser = new pb::MessageParser<S_To_C_Bullet>(() => new S_To_C_Bullet());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_Bullet> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 2;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 3;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "z" field.</summary>
+    public const int ZFieldNumber = 4;
+    private float z_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Z {
+      get { return z_; }
+      set {
+        z_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "atk" field.</summary>
+    public const int AtkFieldNumber = 5;
+    private int atk_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Atk {
+      get { return atk_; }
+      set {
+        atk_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "BulletID" field.</summary>
+    public const int BulletIDFieldNumber = 6;
+    private uint bulletID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint BulletID {
+      get { return bulletID_; }
+      set {
+        bulletID_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+      if (X != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Y);
+      }
+      if (Z != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Z);
+      }
+      if (Atk != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Atk);
+      }
+      if (BulletID != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(BulletID);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      if (Z != 0F) {
+        size += 1 + 4;
+      }
+      if (Atk != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Atk);
+      }
+      if (BulletID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+          case 21: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Y = input.ReadFloat();
+            break;
+          }
+          case 37: {
+            Z = input.ReadFloat();
+            break;
+          }
+          case 40: {
+            Atk = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            BulletID = input.ReadUInt32();
             break;
           }
         }

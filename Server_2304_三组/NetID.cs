@@ -16,4 +16,6 @@ public class NetID
     public static int S_To_C_PlayerOperation = 10002;
     public static int C_To_S_Disconnect = 10003;
     public static int S_To_C_Disconnect = 10004;
+    public static int C_To_S_Bullet = 10005;
+    public static int S_To_C_Bullet = 10006;
 }
