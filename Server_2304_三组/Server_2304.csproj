@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BagConfig.cs" />
-    <Compile Include="Fight.cs" />
     <Compile Include="lib\Crc16.cs" />
     <Compile Include="lib\MyMemoryStream.cs" />
     <Compile Include="lib\SecurityUtil.cs" />

@@ -19,6 +19,7 @@ namespace Server_2304
             BagConfig.GetInstance().Init();
             PlayerConfig.GetInstance().InitPlayer();
             PlayerFightMgr.GetInstance().Init();
+            RefreshBullet.GetInstance().Init();
             
             
             Console.ReadKey();

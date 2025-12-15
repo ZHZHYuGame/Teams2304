@@ -18,4 +18,6 @@ public class NetID
     public static int S_To_C_Disconnect = 10004;
     public static int C_To_S_Bullet = 10005;
     public static int S_To_C_Bullet = 10006;
+    public static int C_To_S_ReomveBullet = 10007;
+    public static int S_To_C_ReomveBullet = 10008;
 }
