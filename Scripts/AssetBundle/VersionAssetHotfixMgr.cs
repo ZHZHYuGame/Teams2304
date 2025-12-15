@@ -12,6 +12,7 @@ using UnityEngine.Networking;
 /// </summary>
 public class VersionAssetHotfixMgr : MonoBehaviour
 {
+    bool isplay = false;
     private void Awake()
     {
         //MessageControll.GetInstance().AddListener(Client_Const_Event.Hotfix_Confirm_Event, Hotfix_Confirm_Event_Handle);
@@ -29,6 +30,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     /// </summary>
 
     string server_AssetsMainfast_Str;
+    string server_ABOutFiles_Str;
     /// <summary>
     /// 服务器的AB资源
     /// </summary>
@@ -74,22 +76,26 @@ public class VersionAssetHotfixMgr : MonoBehaviour
                 if (server_Version.big > local_Version.big)
                 {
                     DownLoad_All_Assets();
+                    isplay = true;
                 }
                 //中版本更新
                 else if (server_Version.middle > local_Version.middle)
                 {
                     Hotfix_Version_Assets_AllComparison();
+                    isplay = true;
                 }
                 //小版本更新
                 else if (server_Version.small > local_Version.small)
                 {
                     Hotfix_Version_Assets_AllComparison();
+                    isplay = true;
                 }
                 else
                 {
                     //无更新需求，走正常进入游戏
-
+                    isplay = true;
                 }
+                Game.GetInstance().Start();
             }
         });
     }
@@ -280,9 +286,19 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     {
         File.WriteAllText($"{Application.persistentDataPath}/AssetMainfast.txt", server_AssetsMainfast_Str);
     }
-
+    void Save_Server_ABOutFiles()
+    {
+        File.WriteAllText($"{Application.persistentDataPath}/ABOutFiles", server_AssetsMainfast_Str);
+    }
     internal void Hotfix_Confirm_Event_Handle(object obj)
     {
         Hotfix_Version_Assets_AllComparison();
+    }
+    private void Update()
+    {
+        if(isplay)
+        {
+            Game.GetInstance().Update();
+        }
     }
 }
