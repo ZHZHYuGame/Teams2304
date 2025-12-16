@@ -13,7 +13,6 @@ function shopControll:AddListener()
 end
 function shopControll:GetShopDataRefreshed(ShopDataList)
     self.data = ShopDataList[1].Goodsdatalist  
-
     self.model:UpdateShopData(self.data)
     if self.view then
         self.view:RefreshShopUI(self.model:GetShopData())

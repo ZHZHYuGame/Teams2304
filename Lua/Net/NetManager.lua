@@ -12,11 +12,9 @@ function NetManager:Handle_Net_Msg(netData)
         s_Msg = MyGame.S_To_C_ShopGoods.Parser:ParseFrom(netData.byteData)
     elseif netData.netID == NetID.S_To_C_BagGoods then
         s_Msg = MyGame.S_To_C_BagGoods.Parser:ParseFrom(netData.byteData)
-    elseif netData.netID == NetID.S_To_C_BuyGood then
-        s_Msg = MyGame.S_To_C_BuyGood.Parser:ParseFrom(netData.byteData)
+    elseif netData.netID == NetID.S_To_C_SendGood then
+        s_Msg = MyGame.S_To_C_SendGood.Parser:ParseFrom(netData.byteData)
     end
-   
-    
     -- 分发消息到NetMessageControll
     NetMessageControll:Dispatch(netData.netID, s_Msg)
 end

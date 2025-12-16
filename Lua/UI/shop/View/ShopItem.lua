@@ -10,8 +10,7 @@ function ShopItem:__init(goodsListRoot, Data)
     --赋值UI
     itemTrans:Find("Icon"):GetComponent("Image").sprite = ABManager.GetInstance():LoadAsset_Sprite(self.Data.Icon)
     self.Tool = CS.Tool.AddTool(self.itemObj)
-    self.Tool.Action_OnPointerDown = function(eventData)
-      
+    self.Tool.Action_OnPointerDown = function(eventData)   
         UIMessageControll:Dispatch(UIID.ShowShopUI, self.Data)
     end
 end
