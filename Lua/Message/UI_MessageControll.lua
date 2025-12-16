@@ -23,9 +23,15 @@ function UIMessageControll:Remove(id)
     
 end
 function UIMessageControll:Dispatch(id,...)
-    if self.m_Dict[id]==nil then
+    local tab={...}
+    if self.m_Dict==nil then
+        self.m_Dict={}
+    end
+    if self.m_Dict[id]~=nil then
         for index, value in ipairs(self.m_Dict[id]) do
-            value(...)
+            if value~=nil then
+                value(tab)
+            end
         end
     end
     

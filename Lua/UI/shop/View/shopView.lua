@@ -2,8 +2,7 @@ local shopView = BaseClass("shopView")
 ShopItem = require("UI/shop/View/ShopItem")
 
 function shopView:__init(prefab)
-    
-    UIMessageControll:AddListener(UIID.ShowShopUI, Bind(self,self.RefreshShow) )
+    UIMessageControll:AddListener(UIID.ShowShopUI, Bind(self, self.RefreshShow))
     self.prefab = prefab
     self.prefab.gameObject:SetActive(false)
     -- 商品列表容器
@@ -13,11 +12,9 @@ function shopView:__init(prefab)
     self.CloseBut.onClick:AddListener(function()
         _G.UImgr:CloseUI(UITypeEnum.shop, false)
     end)
-
-
     self.ShopItems = {}
-    self.showNum = 0
-    self.ShowData = nil 
+    self.showNum = 1
+    self.ShowData = nil
     self.showIcon = prefab.transform:GetChild(1).transform:GetChild(0).transform:GetChild(0):GetComponent("Image")
     self.showName = prefab.transform:GetChild(1).transform:GetChild(1):GetComponent("Text")
     self.showDes = prefab.transform:GetChild(1).transform:GetChild(2).transform:GetChild(0):GetComponent("Text")
@@ -26,12 +23,75 @@ function shopView:__init(prefab)
     self.showReduceBut = prefab.transform:GetChild(1).transform:GetChild(5):GetComponent("Button")
     self.showBuyBut = prefab.transform:GetChild(1).transform:GetChild(6):GetComponent("Button")
     self.showPriceText = prefab.transform:GetChild(1).transform:GetChild(6).transform:GetChild(1):GetComponent("Text")
-    
+    self.showAddBut.onClick:AddListener(function()
+        self.showNum = self.showNum + 1
+        self.showInputText.text = self.showNum
+    end)
+    self.showReduceBut.onClick:AddListener(function()
+        self.showNum = self.showNum - 1
+        self.showInputText.text = self.showNum
+        if self.showNum <= 1 then
+            self.showNum = 1
+        end
+    end)
+    self.showBuyBut.onClick:AddListener(function()
+        local BuyGoodsData = MyGame.C_To_S_BuyGood()
+        BuyGoodsData.Id = self.ShowData.Id
+        BuyGoodsData.Num = self.showNum
+        CS.NetManager.GetInstance():SendMessage(CS.NetID.C_To_S_BuyGood, Protobuf.ToByteArray(BuyGoodsData))
+        self.showNum = 1
+        self.showInputText.text = self.showNum
+    end)
+
+
+    self.All = prefab.transform:GetChild(2).transform:GetChild(0):GetComponent("Toggle")
+    self.Equipment = prefab.transform:GetChild(2).transform:GetChild(1):GetComponent("Toggle")
+    self.Medicine = prefab.transform:GetChild(2).transform:GetChild(2):GetComponent("Toggle")
+    self.other = prefab.transform:GetChild(2).transform:GetChild(3):GetComponent("Toggle")
+    self.All.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, item in pairs(self.ShopItems) do
+                item:ShowUI()
+            end
+        end
+    end)
+    self.Equipment.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, item in pairs(self.ShopItems) do
+                if item.Data.InventoryType == "装备" then
+                    item:ShowUI()
+                else
+                    item:CloseUI()
+                end
+            end
+        end
+    end)
+    self.Medicine.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, item in pairs(self.ShopItems) do
+                if item.Data.InventoryType == "药品" then
+                    item:ShowUI()
+                else
+                    item:CloseUI()
+                end
+            end
+        end
+    end)
+    self.other.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, item in pairs(self.ShopItems) do
+                if item.Data.InventoryType == "宝箱" or item.Data.InventoryType == "经验书" then
+                    item:ShowUI()
+                else
+                    item:CloseUI()
+                end
+            end
+        end
+    end)
 end
+
 -- 刷新商城UI
 function shopView:RefreshShopUI(goodsList)
-
-    
     -- -- 清空旧Item
     -- for i = self.goodsListRoot.childCount, 1, -1 do
     --     GameObject.Destroy(self.goodsListRoot:GetChild(i - 1).gameObject)
@@ -41,10 +101,9 @@ function shopView:RefreshShopUI(goodsList)
         table.insert(self.ShopItems, item)
     end
     self:FirstRefreshShow(goodsList[0])
-    
 end
+
 function shopView:RefreshShow(data)
-    print(data[1])
     if data[1] == nil then
         return
     end
@@ -56,8 +115,8 @@ function shopView:RefreshShow(data)
     self.showInputText.text = self.showNum
     self.showPriceText.text = self.ShowData.Sale
 end
+
 function shopView:FirstRefreshShow(data)
-    print(data)
     if data == nil then
         return
     end
@@ -69,6 +128,7 @@ function shopView:FirstRefreshShow(data)
     self.showInputText.text = self.showNum
     self.showPriceText.text = self.ShowData.Sale
 end
+
 function shopView:OnEnable()
 
 end

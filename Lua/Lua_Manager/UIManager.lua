@@ -85,12 +85,12 @@ function uiManager:CloseUI(uiType, isDestroy)
 
         -- 移除缓存字典中的记录：保证下次打开该UI时重新加载初始化
         self.uiDict[uiType] = nil
-        print(string.format("UI[%s]已彻底销毁并移除缓存", tostring(uiType)))
+        --print(string.format("UI[%s]已彻底销毁并移除缓存", tostring(uiType)))
     else
         -- 仅隐藏时的扩展点：可在此添加面板状态重置逻辑
         -- 示例：清空输入框、重置滚动条位置、停止动画等
         -- targetUI:ResetState()  -- 假设视图层有状态重置方法
-        print(string.format("UI[%s]已隐藏", tostring(uiType)))
+        --print(string.format("UI[%s]已隐藏", tostring(uiType)))
     end
 end
 --获取面板
