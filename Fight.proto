@@ -5,9 +5,7 @@ package myGame;
 enum PlayerType
 {
   None=0;
-  Walk=1;
-  Run=2;
-  Jump=3;
+  Dead=1;
 }
 
 //玩家位置数据
@@ -82,5 +80,23 @@ message S_To_C_PlayerHp
 {
   uint32 PlayerId=1;
   uint32 Hp=2;
+  PlayerType type=3;
+}
+
+message C_To_S_PlayerAlive
+{
+  uint32 PlayerId=1;
+  PlayerType type=3;
+}
+
+message C_To_S_PlayerAnimator
+{
+  uint32 PlayerId=1;
+  string AnimatorName=2;
+}
+message S_To_C_PlayerAnimator
+{
+  uint32 PlayerId=1;
+  string AnimatorName=2;
 }
 

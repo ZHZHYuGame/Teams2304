@@ -14,9 +14,7 @@ namespace MyGame {
   /// </summary>
   public enum PlayerType {
     None = 0,
-    Walk = 1,
-    Run = 2,
-    Jump = 3,
+    Dead = 1,
   }
 
   #endregion
@@ -1026,6 +1024,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 3;
+    private global::MyGame.PlayerType type_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.PlayerType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -1035,6 +1044,10 @@ namespace MyGame {
       if (Hp != 0) {
         output.WriteRawTag(16);
         output.WriteUInt32(Hp);
+      }
+      if (Type != 0) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Type);
       }
     }
 
@@ -1046,6 +1059,9 @@ namespace MyGame {
       }
       if (Hp != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Hp);
+      }
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       return size;
     }
@@ -1064,6 +1080,229 @@ namespace MyGame {
           }
           case 16: {
             Hp = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            type_ = (global::MyGame.PlayerType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class C_To_S_PlayerAlive : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_PlayerAlive> _parser = new pb::MessageParser<C_To_S_PlayerAlive>(() => new C_To_S_PlayerAlive());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_PlayerAlive> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "PlayerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 3;
+    private global::MyGame.PlayerType type_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.PlayerType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+      if (Type != 0) {
+        output.WriteRawTag(24);
+        output.WriteEnum((int) Type);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+          case 24: {
+            type_ = (global::MyGame.PlayerType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class C_To_S_PlayerAnimator : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_PlayerAnimator> _parser = new pb::MessageParser<C_To_S_PlayerAnimator>(() => new C_To_S_PlayerAnimator());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_PlayerAnimator> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "PlayerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AnimatorName" field.</summary>
+    public const int AnimatorNameFieldNumber = 2;
+    private string animatorName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string AnimatorName {
+      get { return animatorName_; }
+      set {
+        animatorName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+      if (AnimatorName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AnimatorName);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      if (AnimatorName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimatorName);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            AnimatorName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class S_To_C_PlayerAnimator : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_PlayerAnimator> _parser = new pb::MessageParser<S_To_C_PlayerAnimator>(() => new S_To_C_PlayerAnimator());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_PlayerAnimator> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "PlayerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AnimatorName" field.</summary>
+    public const int AnimatorNameFieldNumber = 2;
+    private string animatorName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string AnimatorName {
+      get { return animatorName_; }
+      set {
+        animatorName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+      if (AnimatorName.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(AnimatorName);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      if (AnimatorName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimatorName);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
+            AnimatorName = input.ReadString();
             break;
           }
         }
