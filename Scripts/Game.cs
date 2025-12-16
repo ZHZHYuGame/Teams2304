@@ -9,12 +9,13 @@ public class Game : Singleton<Game>
     // Start is called before the first frame update
     public void Start()
     {
-        //NetManager.GetInstance().Start();
-        //LuaMain.GetInstance().Start();
         ABManager.GetInstance().Start();
+        NetManager.GetInstance().Start();
+        LuaMain.GetInstance().Start();
+        
         //Instantiate(ABManager.GetInstance().LoadAsset("cube"));
         //image.sprite = ABManager.GetInstance().LoadAsset<Sprite>("40");
-        GameObject.Instantiate(ABManager.GetInstance().LoadAsset_GameObject("ui_window_shop"),GameObject.Find("Canvas").transform);
+        //GameObject.Instantiate(ABManager.GetInstance().LoadAsset_GameObject("ui_window_shop"),GameObject.Find("Canvas").transform);
         //string path = Application.streamingAssetsPath + "/ABs/0.u3d";
         //通过资源包的路径找到这一个资源包
         //AssetBundle aBundle = AssetBundle.LoadFromFile(path);
@@ -27,8 +28,8 @@ public class Game : Singleton<Game>
     // Update is called once per frame
     public void Update()
     {
-        //NetManager.GetInstance().Update();
+        NetManager.GetInstance().Update();
         //Tool_Time_Manager.GetInstance().Update();
-        //LuaMain.GetInstance().Update();
+        LuaMain.GetInstance().Update();
     }
 }
