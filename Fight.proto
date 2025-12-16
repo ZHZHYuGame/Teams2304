@@ -72,4 +72,15 @@ message S_To_C_RemoveBullet
 	uint32 BulletID = 6;
 }
 
+message C_To_S_PlayerAtk
+{
+  uint32 AtkPlayerId=1;
+  uint32 BAtkPlayerId=2;
+  uint32 BulletID = 6;
+}
+message S_To_C_PlayerHp
+{
+  uint32 PlayerId=1;
+  uint32 Hp=2;
+}
 
