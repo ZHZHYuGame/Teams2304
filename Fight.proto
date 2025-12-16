@@ -28,6 +28,9 @@ message S_To_C_PlayerOperation
   float y =3;
   float z =4;
   float roundY =5;
+  string PathName = 6;
+  string Name = 7;
+  int32 hp=8;
 }
 
 //玩家断开链接
@@ -41,4 +44,31 @@ message S_To_C_Disconnect
 	uint32 playerId = 1;
 }
 
+message C_To_S_Bullet
+{
+	uint32 playerId = 1;
+	float x =2;
+	float y =3;
+	float z =4;
+	int32 atk = 5;
+	uint32 BulletID = 6;
+}
+message S_To_C_Bullet
+{
+	uint32 playerId = 1;
+	float x =2;
+	float y =3;
+	float z =4;
+	int32 atk = 5;
+	uint32 BulletID = 6;
+}
+
+message C_To_S_RemoveBullet
+{
+	uint32 BulletID = 6;
+}
+message S_To_C_RemoveBullet
+{
+	uint32 BulletID = 6;
+}
 

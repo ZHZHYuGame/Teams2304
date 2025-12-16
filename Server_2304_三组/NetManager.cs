@@ -10,11 +10,6 @@ using System.Threading.Tasks;
 public class NetManager:Singleton<NetManager>
 {
     Socket socket;
-
-    /// <summary>
-    /// 用来存储数据(粘包)
-    /// </summary>
-    /// 
     /// <summary>
     /// 管理所有客户端
     /// </summary>

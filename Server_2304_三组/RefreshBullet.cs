@@ -25,7 +25,7 @@ namespace Server_2304
             {
                 if (st != item.st)
                 {
-                    NetManager.GetInstance().SendMessage(NetID.S_To_C_Bullet,scMsg.ToByteArray(),item.st);
+                    NetManager.GetInstance().SendMessage(NetID.S_To_C_ReomveBullet,scMsg.ToByteArray(),item.st);
                 }
             }
         }
@@ -39,10 +39,8 @@ namespace Server_2304
             C_To_S_Bullet csMsg = C_To_S_Bullet.Parser.ParseFrom(bytes);
             csMsg.Atk = 20;
             S_To_C_Bullet scMsg = new S_To_C_Bullet();
+            scMsg.BulletID = csMsg.BulletID;
             scMsg.Atk = 20;
-            scMsg.X = csMsg.X;
-            scMsg.Y = csMsg.Y;
-            scMsg.Z = csMsg.Z;
             scMsg.PlayerId = csMsg.PlayerId;
 
             foreach (var item in NetManager.GetInstance().clientsList)
