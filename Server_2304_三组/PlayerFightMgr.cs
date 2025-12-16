@@ -27,8 +27,10 @@ namespace Server_2304
             C_To_S_Disconnect msg =C_To_S_Disconnect.Parser.ParseFrom(bytes);
             S_To_C_Disconnect toCMsg = new S_To_C_Disconnect();
             toCMsg.PlayerId = msg.PlayerId;
-            
+            //清除服务器在线列表中的这个客户端以及停止接受消息
             NetManager.GetInstance().RevomeSt(st);
+            //删除此玩家的血条数据
+            PlayerHpMgr.GetInstance().RemovePlayerHp(msg.PlayerId);
             
             foreach (var item in NetManager.GetInstance().clientsList)
             {
@@ -41,10 +43,10 @@ namespace Server_2304
             object[] ooo = obj as object[];
             Socket st = ooo[1] as Socket;
             C_To_S_PlayerOperation cmsg=C_To_S_PlayerOperation.Parser.ParseFrom(ooo[0] as byte[]);
-           
+            //初始化添加玩家血量
+            PlayerHpMgr.GetInstance().AddPlayerHp(cmsg.PlayerId);
             
             S_To_C_PlayerOperation msg = new S_To_C_PlayerOperation();
-            Console.WriteLine(cmsg.PlayerId);
             msg.PlayerId = cmsg.PlayerId;
             msg.X = cmsg.X;
             msg.Y = cmsg.Y;
