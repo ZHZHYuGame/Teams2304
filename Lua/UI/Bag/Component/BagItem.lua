@@ -31,4 +31,10 @@ function bagItem:RefreshBagItem(data)
         self.numText.gameObject:SetActive(false)
     end
 end
+function bagItem:ShowUI(data)
+    self.bagitem.gameObject:SetActive(true)
+end
+function bagItem:CloseUI()
+    self.bagitem.gameObject:SetActive(false)
+end
 return bagItem

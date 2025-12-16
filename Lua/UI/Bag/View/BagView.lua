@@ -9,6 +9,65 @@ function BagView:__init(prefab)
     self.CloseBut.onClick:AddListener(function()
         _G.UImgr:CloseUI(UITypeEnum.bag, false)
     end)
+
+    self.All = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(0):GetComponent("Toggle")
+    self.Equipment = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(1):GetComponent("Toggle")
+    self.Medicine = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(2):GetComponent("Toggle")
+    self.other = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(3):GetComponent("Toggle")
+    self.All.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, value in pairs(self.BagCell) do
+                if value.data~=nil then
+                    value:ShowUI(self.bagdata[key])
+                end
+                
+            end
+        end
+    end)
+    self.Equipment.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, value in pairs(self.BagCell) do
+                if value.data~=nil then
+                    if value.data.InventoryType == "装备" then
+                        value:ShowUI(self.bagdata[key])
+                    else
+                        value:CloseUI()
+                    end
+                end
+                
+                
+            end
+        end
+    end)
+    self.Medicine.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, value in pairs(self.BagCell) do
+                if value.data~=nil then
+                    if value.data.InventoryType == "药品" then
+                        value:ShowUI(self.bagdata[key])
+                    else
+                        value:CloseUI()
+                    end
+                end
+                
+            end
+        end
+    end)
+    self.other.onValueChanged:AddListener(function(isOn)
+        if isOn then
+            for key, value in pairs(self.BagCell) do
+                if value.data~=nil then
+                    if value.data.InventoryType == "宝箱"  or value.data.InventoryType == "经验书"then
+                        value:ShowUI(self.bagdata[key])
+                    else
+                        value:CloseUI()
+                    end
+                end
+                
+                
+            end
+        end
+    end)
 end
 
 function BagView:UpdateBagUI(data)
@@ -31,7 +90,6 @@ function BagView:RefreshBagItemUI(data)
         end
     end
 end
-
 function BagView:OnEnable()
 
 end
