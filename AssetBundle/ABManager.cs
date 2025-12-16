@@ -23,7 +23,7 @@ public class ABManager : Singleton<ABManager>
     private string abPath;
     public void OnInit()
     {
-        abPath = $"{Application.persistentDataPath}/{Application.version}";
+        abPath = $"{Application.persistentDataPath}";
         InitDependence();
     }
     /// <summary>
@@ -206,7 +206,7 @@ public class ABManager : Singleton<ABManager>
     private MyAssetBundle LoadAssetBundle(string assetbundlename)
     {
         string path = Path.Combine(abPath, assetbundlename);
-        if (abCache.ContainsKey(assetbundlename))
+         if (abCache.ContainsKey(assetbundlename))
         {
             abCache[assetbundlename].count++;///之前加载过这个AB包，计数增加就可以了。
             return abCache[assetbundlename];

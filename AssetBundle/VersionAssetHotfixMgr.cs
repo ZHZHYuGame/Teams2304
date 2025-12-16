@@ -53,7 +53,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
         ins = this;
     }
 
-    public void OnStart()
+    public void Start()
     {
         //版本下载，并与本地P目录下的版本号文件对比
         string server_Verion_txt = $"{http_Asset_Server_IP}/Version.txt";
@@ -111,7 +111,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     {
         //下载服务器版本清单文件
         string sever_version_mainfest_path =
-            $"{http_Asset_Server_IP}/{server_Version.ToString()}/{server_Version.ToString()}";
+            $"{http_Asset_Server_IP}/{server_Version.ToString()}/{server_Version.ToString()}.u3d";
         Load_Asset_Server_Version(sever_version_mainfest_path, (data) =>
         {
             //判断本地是否第一次下载资源,不是第一次就卸载之前的版本清单文件
@@ -153,11 +153,15 @@ public class VersionAssetHotfixMgr : MonoBehaviour
 
         UnityWebRequestAsyncOperation op = unityWeb.SendWebRequest();
         yield return new WaitForSeconds(0.1f);
+        while (!op.isDone)
+        {
+            yield return null;
+        }
         if (op.isDone)
         {
             complete(unityWeb.downloadHandler.data);
         }
-        yield return null;
+        
     }
     /// <summary>
     /// 下载服务器的资源清单文件（里面记录的是所有的这个版本的资源文件）
@@ -292,7 +296,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     /// <param name="ast"></param>
     void DownLoad_Asset(ABAsset ast)
     {
-        string path = $"{http_Asset_Server_IP}/{ast.abName}";
+        string path = $"{http_Asset_Server_IP}/{server_Version.ToString()}/{ast.abName}";
 
         Load_Asset_Server_Asset(path, (data) =>
         {
