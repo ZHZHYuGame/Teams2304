@@ -69,6 +69,7 @@
     <Compile Include="MessageControll.cs" />
     <Compile Include="NetID.cs" />
     <Compile Include="NetManager.cs" />
+    <Compile Include="PlayerAnimatorMgr.cs" />
     <Compile Include="PlayerConfig.cs" />
     <Compile Include="PlayerFightMgr.cs" />
     <Compile Include="PlayerHpMgr.cs" />

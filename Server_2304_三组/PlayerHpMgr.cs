@@ -42,13 +42,14 @@ namespace Server_2304
             if (allPlayerHp.ContainsKey(bAtkPlayerID))
             {
                 allPlayerHp[bAtkPlayerID] -= 20;
+                PlayerType type = PlayerType.None;
                 if (allPlayerHp[bAtkPlayerID] <=0)
                 {
                     allPlayerHp[bAtkPlayerID] = 0;
                     //该玩家血条为零，通知所有人该玩家死亡
-                    
+                    type =  PlayerType.Dead;
                 }
-                RefreshAllPlayerHp(bAtkPlayerID, allPlayerHp[bAtkPlayerID]);
+                RefreshAllPlayerHp(bAtkPlayerID, allPlayerHp[bAtkPlayerID],type);
                 Console.WriteLine($"{atkPlayerID}对{bAtkPlayerID}造成了20点伤害！剩余血量{allPlayerHp[bAtkPlayerID]}");
             }
             
@@ -59,13 +60,14 @@ namespace Server_2304
         /// </summary>
         /// <param name="playerId"></param>
         /// <param name="hp"></param>
-        public void RefreshAllPlayerHp(uint playerId,int hp)
+        public void RefreshAllPlayerHp(uint playerId,int hp,PlayerType type)
         {
             S_To_C_PlayerHp scMsg = new S_To_C_PlayerHp();
             foreach (var item in NetManager.GetInstance().clientsList)
             {
                 scMsg.PlayerId = playerId;
                 scMsg.Hp = (uint)hp;
+                scMsg.Type = type;
                 NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerHp,scMsg.ToByteArray(),item.st);
             }
         }
@@ -78,7 +80,7 @@ namespace Server_2304
             if (!allPlayerHp.ContainsKey(playerId))
             {
                 allPlayerHp.Add(playerId,200);
-                RefreshAllPlayerHp(playerId, allPlayerHp[playerId]);
+                RefreshAllPlayerHp(playerId, allPlayerHp[playerId],PlayerType.None);
             }
         }
         /// <summary>
