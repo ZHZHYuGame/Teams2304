@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,16 @@ using Google;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    public PlayerType Nowtype;
     private Rigidbody rig;
     public uint playerId;
     void Start()
@@ -23,6 +34,10 @@ public class Player : MonoBehaviour
     private float timer;
     public void Update()
     {
+        if (Nowtype == PlayerType.Dead)
+        {
+            return;
+        }
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         //移动
@@ -60,6 +75,25 @@ public class Player : MonoBehaviour
             PlayerNetMgr.GetInstance().RefreshPlayerPos(transform, playerId);
             nowY = transform.position.y;
         }
-        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Debug.Log("被攻击");
+            Bullet EnemyBullet = other.gameObject.GetComponent<Bullet>();
+            C_To_S_PlayerAtk msg = new C_To_S_PlayerAtk();
+            EnemyBullet.Remove();
+            msg.AtkPlayerId = EnemyBullet.playerID;
+            msg.BAtkPlayerId = playerId;
+            msg.BulletID=EnemyBullet.bulletID;
+            NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerAtk,msg.ToByteArray());
+        }
+    }
+
+    public void SetAnimator(string anim)
+    {
+        Debug.Log("动画");
     }
 }

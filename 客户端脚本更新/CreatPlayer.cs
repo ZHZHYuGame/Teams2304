@@ -10,8 +10,8 @@ using MyGame;
 public class CreatPlayer : MonoBehaviour
 {
     public static CreatPlayer instance;
-     Dictionary<uint,GameObject>  PlayerDic = new Dictionary<uint, GameObject>();
-    public GameObject player;
+    public Dictionary<uint,Player>  PlayerDic = new Dictionary<uint, Player>();
+    public Player player;
     public static uint PlayerID ; 
     public CinemachineFreeLook playerCamera;
 
@@ -21,11 +21,16 @@ public class CreatPlayer : MonoBehaviour
         {
             instance = this;
         }
-        //PlayerID = 156;
+        ABManager.GetInstance().Start();
+        
         MessageControll.GetInstance().AddListener(NetID.S_To_C_PlayerOperation,RushPlayer);
         MessageControll.GetInstance().AddListener(NetID.S_To_C_Disconnect,S_To_C_DisconnectHandle);
         BulletMgr.GetInstance().Init();
-        
+        HPManger.GetInstance().Init();
+        PlayerAnimatorMgr.GetInstance().Init();
+        //加载场景
+        Instantiate(ABManager.GetInstance().LoadAsset_GameObject("map"));
+
     }
     /// <summary>
     /// 断开链接
@@ -49,9 +54,11 @@ public class CreatPlayer : MonoBehaviour
     {
         C_To_S_PlayerOperation msg=new C_To_S_PlayerOperation();
         msg.PlayerId = PlayerID;
-        player = Instantiate(Resources.Load<GameObject>("Role/1"));
+        player = Instantiate(Resources.Load<Player>("Role/3"));
+        Vector2 n = UnityEngine.Random.insideUnitCircle * 10;
+        player.transform.position = new Vector3(n.x, 23, n.y)+new Vector3(70,0,40);
         NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerOperation,msg.ToByteArray());
-        player.AddComponent<Player>().Init(PlayerID);
+        player.Init(PlayerID);
         
         if (playerCamera == null)
         {
@@ -71,7 +78,8 @@ public class CreatPlayer : MonoBehaviour
         }
         if (!PlayerDic.ContainsKey(msg.PlayerId))
         {
-            PlayerDic[msg.PlayerId] = Instantiate(Resources.Load<GameObject>("Role/1"));
+            PlayerDic[msg.PlayerId] = Instantiate(Resources.Load<Player>("Role/3"));
+            PlayerDic[msg.PlayerId].tag = "Enemy";
         }
         else
         {

@@ -24,5 +24,11 @@ public class NetID
     public static int S_To_C_Bullet = 10006;
     public static int C_To_S_ReomveBullet = 10007;
     public static int S_To_C_ReomveBullet = 10008;
+    
+    public static int C_To_S_PlayerAtk = 10009;
+    public static int S_To_C_PlayerHp = 10010;
+    public static int C_To_S_PlayerAlive = 10011;
+    public static int C_To_S_PlayerAnimator = 10012;
+    public static int S_To_C_PlayerAnimator = 10013;
 
 }
