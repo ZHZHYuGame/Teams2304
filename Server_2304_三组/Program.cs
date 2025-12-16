@@ -20,7 +20,7 @@ namespace Server_2304
             PlayerConfig.GetInstance().InitPlayer();
             PlayerFightMgr.GetInstance().Init();
             RefreshBullet.GetInstance().Init();
-            
+            PlayerHpMgr.GetInstance().Init();
             
             Console.ReadKey();
         }

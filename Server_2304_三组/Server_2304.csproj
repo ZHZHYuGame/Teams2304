@@ -71,6 +71,7 @@
     <Compile Include="NetManager.cs" />
     <Compile Include="PlayerConfig.cs" />
     <Compile Include="PlayerFightMgr.cs" />
+    <Compile Include="PlayerHpMgr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protobuf\ByteArray.cs" />
