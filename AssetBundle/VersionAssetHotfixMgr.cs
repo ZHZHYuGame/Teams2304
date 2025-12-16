@@ -18,7 +18,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     /// <summary>
     /// 资源服务器的IP Title
     /// </summary>
-    string http_Asset_Server_IP = "127.0.0.1/Game";
+    string http_Asset_Server_IP = "10.161.25.106/Game";
     /// <summary>
     /// 服务器版本号
     /// </summary>
