@@ -13,7 +13,7 @@ namespace Server_2304
     public class PlayerHpMgr:Singleton<PlayerHpMgr>
     {
         //所有玩家的血条数据
-        private Dictionary<uint,uint> allPlayerHp = new Dictionary<uint,uint>();
+        private Dictionary<uint,int> allPlayerHp = new Dictionary<uint,int>();
         public void Init()
         {
             MessageControll.GetInstance().AddListener(NetID.C_To_S_PlayerAtk,C_To_S_PlayerAtkHandler);
@@ -42,23 +42,30 @@ namespace Server_2304
             if (allPlayerHp.ContainsKey(bAtkPlayerID))
             {
                 allPlayerHp[bAtkPlayerID] -= 20;
-                
+                if (allPlayerHp[bAtkPlayerID] <=0)
+                {
+                    allPlayerHp[bAtkPlayerID] = 0;
+                    //该玩家血条为零，通知所有人该玩家死亡
+                    
+                }
                 RefreshAllPlayerHp(bAtkPlayerID, allPlayerHp[bAtkPlayerID]);
+                Console.WriteLine($"{atkPlayerID}对{bAtkPlayerID}造成了20点伤害！剩余血量{allPlayerHp[bAtkPlayerID]}");
             }
-            Console.WriteLine($"{atkPlayerID}对{bAtkPlayerID}造成了20点伤害！");
+            
+            
         }
         /// <summary>
         /// 通知所有客户端某个玩家的血量
         /// </summary>
         /// <param name="playerId"></param>
         /// <param name="hp"></param>
-        public void RefreshAllPlayerHp(uint playerId,uint hp)
+        public void RefreshAllPlayerHp(uint playerId,int hp)
         {
             S_To_C_PlayerHp scMsg = new S_To_C_PlayerHp();
             foreach (var item in NetManager.GetInstance().clientsList)
             {
                 scMsg.PlayerId = playerId;
-                scMsg.Hp = hp;
+                scMsg.Hp = (uint)hp;
                 NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerHp,scMsg.ToByteArray(),item.st);
             }
         }
@@ -70,7 +77,7 @@ namespace Server_2304
         {
             if (!allPlayerHp.ContainsKey(playerId))
             {
-                allPlayerHp.Add(playerId,100);
+                allPlayerHp.Add(playerId,200);
                 RefreshAllPlayerHp(playerId, allPlayerHp[playerId]);
             }
         }
