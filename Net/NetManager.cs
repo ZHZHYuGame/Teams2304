@@ -24,7 +24,7 @@ public class NetManager : Singleton<NetManager>
     {
         st = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        st.BeginConnect("10.161.25.87", 10086, Connect_To_Net_Handle, null);
+        st.BeginConnect("10.161.25.10", 10086, Connect_To_Net_Handle, null);
     }
 
     private void Connect_To_Net_Handle(IAsyncResult ar)
