@@ -33,7 +33,8 @@ namespace Server_2304
             {
                 msg.Shopdatas.Add(item);
             }
-            
+
+            Console.WriteLine($"商城数据{msg.Shopdatas.Count}");
             NetManager.GetInstance().SendMessage(NetID.S_To_C_GetShop,msg.ToByteArray(),st);
         }
 
