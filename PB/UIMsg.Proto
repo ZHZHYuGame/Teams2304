@@ -1,0 +1,79 @@
+syntax="proto3";
+package myGame;
+//客户端请求商城数据
+message C_To_S_GetShopData_Msg
+{
+
+}
+//服务器返回商城数据
+message S_To_C_GetShopData_Msg
+{
+          repeated ShopData shopdatas=1;
+
+}
+//商店数据
+message ShopData
+{
+         int32 id=1;
+         string name=2;
+         string icon=3;
+         string inventoryType=4;
+         string equipTe=5;
+         int32 sale=6;
+         int32 starLevel=7;
+         int32 quality=8;
+         int32 damage=9;
+         int32 hp=10;
+         int32 power=11;
+         string Des=12;
+}
+//客户端请求背包数据
+message C_To_S_GetBagData_Msg
+{
+    uint32 PlayerId = 1;
+}
+//服务器返回背包数据
+message S_To_C_GetBagData_Msg
+{
+          repeated BagData bagDatas=1;
+}
+message BagData
+{
+        int32 BagItemID = 1;
+        ShopData shopData = 2;
+        int32 count = 3;
+}
+
+//服务器发起购买请求
+message C_To_S_BayShop_Msg
+{
+    uint32 PlayerId = 1;
+    int32 GoodID = 2;
+    int32 BayNum = 3;
+}
+//服务器返回购买后的数据
+message S_To_C_S_BayShop_Msg
+{
+    int32 Glod=1;
+    BagData bagData=2;
+    BayType type = 3;
+}
+//枚举
+enum BayType
+{
+    Success = 0;
+    Glod = 1;
+    Item = 2;
+}
+
+//服务器请求玩家数据
+message C_To_S_GetPlayerData_Msg
+{
+    uint32 PlayerId = 1;
+}
+//服务器返回玩家数据
+message S_To_C_GetPlayerData_Msg
+{
+    int32 Glod = 1;
+    repeated BagData bagDatas=2;
+}

@@ -1,0 +1,104 @@
+syntax = "proto3";
+package myGame;
+
+//玩家状态
+enum PlayerType
+{
+  None=0;
+  Dead=1;
+}
+
+//玩家位置数据
+message C_To_S_PlayerOperation
+{
+  uint32 playerId = 1;
+  float x =2;
+  float y =3;
+  float z =4;
+  float roundY =5;
+}
+
+//玩家位置数据
+message S_To_C_PlayerOperation
+{
+  uint32 playerId = 1;
+  float x =2;
+  float y =3;
+  float z =4;
+  float roundY =5;
+  string PathName = 6;
+  string Name = 7;
+  int32 hp=8;
+}
+
+//玩家断开链接
+message C_To_S_Disconnect
+{
+	uint32 playerId = 1;
+}
+//玩家断开链接
+message S_To_C_Disconnect
+{
+	uint32 playerId = 1;
+}
+
+message C_To_S_Bullet
+{
+	uint32 playerId = 1;
+	float x =2;
+	float y =3;
+	float z =4;
+	int32 atk = 5;
+	uint32 BulletID = 6;
+}
+message S_To_C_Bullet
+{
+	uint32 playerId = 1;
+	float x =2;
+	float y =3;
+	float z =4;
+	int32 atk = 5;
+	uint32 BulletID = 6;
+}
+
+message C_To_S_RemoveBullet
+{
+	uint32 BulletID = 6;
+}
+message S_To_C_RemoveBullet
+{
+	uint32 BulletID = 6;
+}
+
+message C_To_S_PlayerAtk
+{
+  uint32 AtkPlayerId=1;
+  uint32 BAtkPlayerId=2;
+  uint32 BulletID = 6;
+}
+message S_To_C_PlayerHp
+{
+  uint32 PlayerId=1;
+  uint32 Hp=2;
+  PlayerType type=3;
+}
+
+message C_To_S_PlayerAlive
+{
+  uint32 PlayerId=1;
+  PlayerType type=3;
+}
+
+message C_To_S_PlayerAnimator
+{
+  uint32 PlayerId=1;
+  string AnimatorName=2;
+  bool aniType = 3;
+}
+message S_To_C_PlayerAnimator
+{
+  uint32 PlayerId=1;
+  string AnimatorName=2;
+  bool aniType = 3;
+}
+
