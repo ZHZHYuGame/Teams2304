@@ -25,7 +25,7 @@ namespace Server_2304
             BroadAllPlayer(csMsg,st);
         }
         /// <summary>
-        /// 广播给除了自己之外的玩家
+        /// 广播给所有玩家
         /// </summary>
         /// <param name="csMsg"></param>
         public void BroadAllPlayer(C_To_S_PlayerAnimator csMsg,Socket st)
@@ -35,11 +35,9 @@ namespace Server_2304
             scMsg.AnimatorName = csMsg.AnimatorName;
             
             foreach (var item in NetManager.GetInstance().clientsList)
-            {
-                if (st != item.st)
-                {
-                    NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerAnimator,scMsg.ToByteArray(),item.st);
-                }
+            { 
+                NetManager.GetInstance().SendMessage(NetID.S_To_C_PlayerAnimator,scMsg.ToByteArray(),item.st);
+                
             }
         }
     }

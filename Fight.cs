@@ -1192,6 +1192,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "aniType" field.</summary>
+    public const int AniTypeFieldNumber = 3;
+    private bool aniType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool AniType {
+      get { return aniType_; }
+      set {
+        aniType_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -1201,6 +1212,10 @@ namespace MyGame {
       if (AnimatorName.Length != 0) {
         output.WriteRawTag(18);
         output.WriteString(AnimatorName);
+      }
+      if (AniType != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(AniType);
       }
     }
 
@@ -1212,6 +1227,9 @@ namespace MyGame {
       }
       if (AnimatorName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimatorName);
+      }
+      if (AniType != false) {
+        size += 1 + 1;
       }
       return size;
     }
@@ -1230,6 +1248,10 @@ namespace MyGame {
           }
           case 18: {
             AnimatorName = input.ReadString();
+            break;
+          }
+          case 24: {
+            AniType = input.ReadBool();
             break;
           }
         }
@@ -1265,6 +1287,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "aniType" field.</summary>
+    public const int AniTypeFieldNumber = 3;
+    private bool aniType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool AniType {
+      get { return aniType_; }
+      set {
+        aniType_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -1274,6 +1307,10 @@ namespace MyGame {
       if (AnimatorName.Length != 0) {
         output.WriteRawTag(18);
         output.WriteString(AnimatorName);
+      }
+      if (AniType != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(AniType);
       }
     }
 
@@ -1285,6 +1322,9 @@ namespace MyGame {
       }
       if (AnimatorName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimatorName);
+      }
+      if (AniType != false) {
+        size += 1 + 1;
       }
       return size;
     }
@@ -1303,6 +1343,10 @@ namespace MyGame {
           }
           case 18: {
             AnimatorName = input.ReadString();
+            break;
+          }
+          case 24: {
+            AniType = input.ReadBool();
             break;
           }
         }
