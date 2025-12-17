@@ -11,6 +11,9 @@ public class NetID
     public static int S_To_C_BayShop = 1006;
     public static int C_To_S_GetPlayer = 1007;
     public static int S_To_C_GetPlayer = 1008;
+    public static int C_To_S_Player_Res = 1009;
+    public static int S_To_C_Player_Login = 1010;
+    public static int S_To_C_PlayerInfo = 1011;
     
     public static int C_To_S_PlayerOperation = 10001;
     public static int S_To_C_PlayerOperation = 10002;

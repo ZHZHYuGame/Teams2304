@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using MyGame;
 
 
 public class NetManager:Singleton<NetManager>
@@ -42,10 +43,10 @@ public class NetManager:Singleton<NetManager>
 
         Client c = new Client()
         {
+            playerId = 0,
             ip = ip.Address.ToString(),
             prot = ip.Port,
             st = st,
-            name = "",
             data = new byte[1024],
             myStream = new MyMemoryStream(),
         };
@@ -220,16 +221,35 @@ public class NetManager:Singleton<NetManager>
     {
         return clientsList;
     }
+
+    public Client GetClientData(Socket st)
+    {
+        foreach (var item in clientsList)
+        {
+            if (item.st ==  st)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
 }
 
 
 
 public class Client
 {
+    public uint playerId;
     public Socket st;
     public string ip;
     public int prot;
-    public string name;
     public byte[] data =  new byte[1024];
     public MyMemoryStream myStream = new MyMemoryStream();
+}
+
+public class PlayerData
+{
+    public int glod;
+    public List<BagData> bag;
 }

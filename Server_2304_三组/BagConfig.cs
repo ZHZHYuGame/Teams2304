@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using MyGame;
@@ -10,27 +11,12 @@ namespace Server_2304
 {
     public class BagConfig:Singleton<BagConfig>
     {
-        private Dictionary<uint,List<BagData>> allPlayerBagDic = new Dictionary<uint,List<BagData>>();
         //背包数据
-        private List<BagData> bags = new List<BagData>();
         public void Init()
         {
-            InitBagDatas();
             MessageControll.GetInstance().AddListener(NetID.C_To_S_GetBag,GetBagHandler);
             MessageControll.GetInstance().AddListener(NetID.C_To_S_BayShop,BayShopHandler);
             
-        }
-        
-        void InitBagDatas()
-        {
-            for (int i = 0; i < 40; i++)
-            {
-                BagData bag = new BagData();
-                bag.BagItemID = i;
-                bag.ShopData = null;
-                bag.Count = 0;
-                bags.Add(bag);
-            }
         }
         private void BayShopHandler(object obj)
         {
@@ -38,27 +24,28 @@ namespace Server_2304
             byte[] data = ooo[0] as byte[];
             Socket st = ooo[1] as Socket;
             
-            C_To_S_BayShop_Msg msg = C_To_S_BayShop_Msg.Parser.ParseFrom(data);
+            C_To_S_BayShop_Msg csMsg = C_To_S_BayShop_Msg.Parser.ParseFrom(data);
             
-            ShopData shop = ShopConfig.GetInstance().GetShop(msg.GoodID);
+            ShopData shop = ShopConfig.GetInstance().GetShop(csMsg.GoodID);
             S_To_C_S_BayShop_Msg bagmsg = new S_To_C_S_BayShop_Msg();
             
-            if (PlayerConfig.GetInstance().SetGold(-shop.Sale))
+            if (PlayerConfig.GetInstance().SetGold(-shop.Sale,csMsg.PlayerId))
             {
-                BagData bagData = AddBags(shop);//加入背包并返回数据改变的具体格子
+                BagData bagData = AddBags(shop, PlayerConfig.GetInstance().GetBags(csMsg.PlayerId));//加入背包并返回数据改变的具体格子
+                Console.WriteLine(bagData.ShopData.Name);
                 if (bagData == null)
                 {
                     //背包已满
                     bagmsg.Type = BayType.Item;
                     bagmsg.BagData = null;
-                    bagmsg.Glod = PlayerConfig.GetInstance().GetGold();
+                    bagmsg.Glod = PlayerConfig.GetInstance().GetGold(csMsg.PlayerId);
                 }
                 else
                 {
                     //购买成功
                     bagmsg.BagData = bagData;
                     bagmsg.Type = BayType.Success;
-                    bagmsg.Glod = PlayerConfig.GetInstance().GetGold();
+                    bagmsg.Glod = PlayerConfig.GetInstance().GetGold(csMsg.PlayerId);
                 }
             }
             else
@@ -66,13 +53,13 @@ namespace Server_2304
                 //金币不足
                 bagmsg.Type = BayType.Glod;
                 bagmsg.BagData = null;
-                bagmsg.Glod = PlayerConfig.GetInstance().GetGold();
+                bagmsg.Glod = PlayerConfig.GetInstance().GetGold(csMsg.PlayerId);
             }
             
             NetManager.GetInstance().SendMessage(NetID.S_To_C_BayShop,bagmsg.ToByteArray(),st);
             
         }
-        BagData AddBags(ShopData shop)
+        BagData AddBags(ShopData shop,List<BagData> bags)
         {
             bool isDie = false;
             for (int i = 0; i < bags.Count; i++)
@@ -110,19 +97,17 @@ namespace Server_2304
         private void GetBagHandler(object obj)
         {
             object[] objs = obj as object[];
+            byte[] bytes = objs[0] as byte[];
             Socket st = objs[1] as Socket;
+            C_To_S_GetBagData_Msg csMsg = C_To_S_GetBagData_Msg.Parser.ParseFrom(bytes);
             
             S_To_C_GetBagData_Msg msg = new S_To_C_GetBagData_Msg();
-            foreach (var item in bags)
+           
+            foreach (var item in PlayerConfig.GetInstance().GetBags(csMsg.PlayerId))
             {
                 msg.BagDatas.Add(item);
             }
             NetManager.GetInstance().SendMessage(NetID.S_To_C_GetBag,msg.ToByteArray(),st);
-        }
-
-        public void InitBagDic()
-        {
-            
         }
     }
 }
