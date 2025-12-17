@@ -1,5 +1,6 @@
 syntax="proto3";
 package myGame;
+
 //客户端请求商城数据
 message C_To_S_GetShopData_Msg
 {
