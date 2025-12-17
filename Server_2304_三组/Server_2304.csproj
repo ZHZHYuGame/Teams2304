@@ -98,8 +98,8 @@
     <Compile Include="Protobuf\WireFormat.cs" />
     <Compile Include="RefreshBullet.cs" />
     <Compile Include="ShopConfig.cs" />
-    <Compile Include="ShopMsg.cs" />
     <Compile Include="Singleton.cs" />
+    <Compile Include="UIMsg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
