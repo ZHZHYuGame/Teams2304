@@ -43,3 +43,14 @@ G:\GameGit\Server_2304_三组\obj\Debug\Server_2304.csproj.CoreCompileInputs.cac
 G:\GameGit\Server_2304_三组\obj\Debug\Server_2.59093607.Up2Date
 G:\GameGit\Server_2304_三组\obj\Debug\Server_2304.exe
 G:\GameGit\Server_2304_三组\obj\Debug\Server_2304.pdb
+D:\GameGit\Server_2304_三组\bin\Debug\Server_2304.exe.config
+D:\GameGit\Server_2304_三组\bin\Debug\Server_2304.exe
+D:\GameGit\Server_2304_三组\bin\Debug\Server_2304.pdb
+D:\GameGit\Server_2304_三组\bin\Debug\Newtonsoft.Json.dll
+D:\GameGit\Server_2304_三组\bin\Debug\Newtonsoft.Json.xml
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2304.csproj.AssemblyReference.cache
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2304.exe.config
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2304.csproj.CoreCompileInputs.cache
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2.59093607.Up2Date
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2304.exe
+D:\GameGit\Server_2304_三组\obj\Debug\Server_2304.pdb
