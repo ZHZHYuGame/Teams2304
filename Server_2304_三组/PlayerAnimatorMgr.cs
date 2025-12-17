@@ -33,6 +33,7 @@ namespace Server_2304
             S_To_C_PlayerAnimator scMsg = new S_To_C_PlayerAnimator();
             scMsg.PlayerId = csMsg.PlayerId;
             scMsg.AnimatorName = csMsg.AnimatorName;
+            scMsg.AniType = csMsg.AniType;
             
             foreach (var item in NetManager.GetInstance().clientsList)
             { 

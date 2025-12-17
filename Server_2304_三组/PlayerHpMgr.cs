@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using MyGame;
 using Google;
@@ -14,10 +15,33 @@ namespace Server_2304
     {
         //所有玩家的血条数据
         private Dictionary<uint,int> allPlayerHp = new Dictionary<uint,int>();
+        private int maxHp;
         public void Init()
         {
+            maxHp = 200;
             MessageControll.GetInstance().AddListener(NetID.C_To_S_PlayerAtk,C_To_S_PlayerAtkHandler);
+            MessageControll.GetInstance().AddListener(NetID.C_To_S_PlayerAlive,C_To_S_PlayerAliveHandler);
         }
+        /// <summary>
+        /// 玩家复活，重置血量
+        /// </summary>
+        /// <param name="o"></param>
+        private void C_To_S_PlayerAliveHandler(object obj)
+        {
+            object[] objs = obj as object[];
+            byte[] bytes = objs[0] as byte[];
+            Socket st = objs[1] as Socket;
+            
+            C_To_S_PlayerAlive csMsg = C_To_S_PlayerAlive.Parser.ParseFrom(bytes);
+            
+            if (allPlayerHp.ContainsKey(csMsg.PlayerId))
+            {
+                allPlayerHp[csMsg.PlayerId] = maxHp;
+                Console.WriteLine($"{csMsg.PlayerId}满血复活{maxHp}");
+                RefreshAllPlayerHp(csMsg.PlayerId,allPlayerHp[csMsg.PlayerId],PlayerType.None);
+            }
+        }
+
         /// <summary>
         ///收到攻击数据
         /// </summary>
@@ -79,7 +103,7 @@ namespace Server_2304
         {
             if (!allPlayerHp.ContainsKey(playerId))
             {
-                allPlayerHp.Add(playerId,200);
+                allPlayerHp.Add(playerId,maxHp);
                 RefreshAllPlayerHp(playerId, allPlayerHp[playerId],PlayerType.None);
             }
         }

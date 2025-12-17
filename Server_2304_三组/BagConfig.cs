@@ -10,6 +10,7 @@ namespace Server_2304
 {
     public class BagConfig:Singleton<BagConfig>
     {
+        private Dictionary<uint,List<BagData>> allPlayerBagDic = new Dictionary<uint,List<BagData>>();
         //背包数据
         private List<BagData> bags = new List<BagData>();
         public void Init()
@@ -117,6 +118,11 @@ namespace Server_2304
                 msg.BagDatas.Add(item);
             }
             NetManager.GetInstance().SendMessage(NetID.S_To_C_GetBag,msg.ToByteArray(),st);
+        }
+
+        public void InitBagDic()
+        {
+            
         }
     }
 }
