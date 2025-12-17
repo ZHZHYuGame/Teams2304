@@ -920,6 +920,114 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///玩家注册消息
+  /// </summary>
+  public sealed class C_To_S_PlayerInfo : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_PlayerInfo> _parser = new pb::MessageParser<C_To_S_PlayerInfo>(() => new C_To_S_PlayerInfo());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_PlayerInfo> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "PlayerId" field.</summary>
+    public const int PlayerIdFieldNumber = 1;
+    private uint playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (PlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(PlayerId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (PlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(PlayerId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            PlayerId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///返回是否注册成功
+  /// </summary>
+  public sealed class S_To_C_PlayerInfo : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_PlayerInfo> _parser = new pb::MessageParser<S_To_C_PlayerInfo>(() => new S_To_C_PlayerInfo());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_PlayerInfo> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "isRuccess" field.</summary>
+    public const int IsRuccessFieldNumber = 1;
+    private bool isRuccess_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsRuccess {
+      get { return isRuccess_; }
+      set {
+        isRuccess_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (IsRuccess != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(IsRuccess);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (IsRuccess != false) {
+        size += 1 + 1;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            IsRuccess = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   #endregion
 
 }
