@@ -36,7 +36,8 @@ public class ABManager : Singleton<ABManager>
             allDependDict = new Dictionary<string, string[]>();
             //拼接的是p目录路径下面的1.0.3(版本号资源清单,根据实际版本读取)这个mainfest类型文件
             string version = File.ReadAllText($"{Application.persistentDataPath}/Version.txt");
-            string path = $"{abPath}/{Application.version}";
+            string path = $"{abPath}/{version}";
+        
             //加载整体的资源包
             AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
             //加载资源
