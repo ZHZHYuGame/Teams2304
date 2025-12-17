@@ -16,6 +16,11 @@ function bagItem:__init(index, data, parent)
         self.icon.gameObject:SetActive(false)
         self.numText.gameObject:SetActive(false)
     end
+
+    self.Tool = CS.Tool.AddTool(self.bagitem)
+    self.Tool.Action_OnPointerDown = function(eventData)
+        UIMessageControll:Dispatch(UIID.ShowBagUI, self.data)
+    end
 end
 
 

@@ -1,3 +1,4 @@
 UIID = {
-    ShowShopUI = "1001"
+    ShowShopUI = "1001",
+    ShowBagUI = "1002"
 }

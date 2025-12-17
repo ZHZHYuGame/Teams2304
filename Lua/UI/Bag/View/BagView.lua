@@ -1,6 +1,7 @@
 local BagView = BaseClass("BagView")
 local BagItem = require("UI/Bag/Component/BagItem")
 function BagView:__init(prefab)
+    UIMessageControll:AddListener(UIID.ShowBagUI, Bind(self, self.RefreshShow))
     self.prefab = prefab
     self.prefab.gameObject:SetActive(false)
     self.itemContent = prefab.transform:Find("BagPanel/Scroll View/Viewport/Content")
@@ -9,6 +10,11 @@ function BagView:__init(prefab)
     self.CloseBut.onClick:AddListener(function()
         _G.UImgr:CloseUI(UITypeEnum.bag, false)
     end)
+    self.ShowData=nil
+    self.showIcon = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(0):GetComponent("Image")
+    self.showName = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(1):GetComponent("Text")
+    self.showDes = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(2).transform:GetChild(0):GetComponent("Text")
+
 
     self.All = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(0):GetComponent("Toggle")
     self.Equipment = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(1):GetComponent("Toggle")
@@ -77,6 +83,7 @@ function BagView:UpdateBagUI(data)
         BagCell = BagItem.New(i, self.bagdata[i], self.itemContent)
         self.BagCell[i] = BagCell
     end
+    self:FirstRefreshShow(self.bagdata[0])
 end
 
 function BagView:RefreshBagItemUI(data)
@@ -87,8 +94,30 @@ function BagView:RefreshBagItemUI(data)
         if self.bagdata[i].Data ~= nil then
          
             self.BagCell[i]:RefreshBagItem(self.bagdata[i])
+            self:FirstRefreshShow(self.bagdata[0])
         end
     end
+end
+function BagView:RefreshShow(data)
+    if data[1] == nil then
+        return
+    end
+    self.ShowData=data[1]
+    self.showIcon.sprite = ABManager.GetInstance():LoadAsset_Sprite(self.ShowData.Icon)
+    self.showName.text = self.ShowData.Name
+    self.showDes.text = self.ShowData.Des
+    
+    
+end
+function BagView:FirstRefreshShow(data)
+    if data.Data == nil then
+        return
+    end
+    self.ShowData=data.Data
+    self.showIcon.sprite = ABManager.GetInstance():LoadAsset_Sprite(self.ShowData.Icon)
+    self.showName.text = self.ShowData.Name
+    self.showDes.text = self.ShowData.Des
+    
 end
 function BagView:OnEnable()
 
