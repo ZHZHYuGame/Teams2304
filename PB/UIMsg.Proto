@@ -77,3 +77,14 @@ message S_To_C_GetPlayerData_Msg
     int32 Glod = 1;
     repeated BagData bagDatas=2;
 }
+
+//玩家注册消息
+message C_To_S_PlayerInfo
+{
+    uint32 PlayerId = 1;
+}
+//返回是否注册成功
+message S_To_C_PlayerInfo
+{
+    bool isRuccess = 1;
+}
