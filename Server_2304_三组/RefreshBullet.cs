@@ -42,6 +42,7 @@ namespace Server_2304
             scMsg.PlayerId = csMsg.PlayerId;
             scMsg.BulletID = csMsg.BulletID;
             scMsg.Atk = 20;
+            scMsg.Rotation = new RotationData();
             scMsg.Rotation.X = csMsg.Rotation.X;
             scMsg.Rotation.Y = csMsg.Rotation.Y;
             scMsg.Rotation.Z = csMsg.Rotation.Z;
