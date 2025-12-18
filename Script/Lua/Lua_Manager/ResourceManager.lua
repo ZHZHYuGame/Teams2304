@@ -1,7 +1,7 @@
 local resourcesManager = {}
 --初始化资源包
 function resourcesManager:Init()
-    ABManager.GetInstance():OnInit()
+    --ABManager.GetInstance():OnInit()
 end
 --查找AB包图集中的精灵
 function resourcesManager:LoadAtlasAsset(Path, name)
@@ -16,12 +16,12 @@ function resourcesManager:LoadAtlasAsset(Path, name)
 end
 --查找AB包中的预制体
 function resourcesManager:LoadAsset(name)
-    local obj = ABManager.GetInstance():LoadAsset("prefab/" .. name, typeof(GameObject))
+    local obj = ABManager.GetInstance():LoadAssetLua("prefab/" .. name, typeof(GameObject))
     return obj
 end
 --查找AB包图片
 function resourcesManager:LoadPictureAsset(name)
-    local obj = ABManager.GetInstance():LoadAsset("jpg/" .. name, typeof(GameObject))
+    local obj = ABManager.GetInstance():LoadAssetLua("jpg/" .. name, typeof(GameObject))
     return obj
 end
 

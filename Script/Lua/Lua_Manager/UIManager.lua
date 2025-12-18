@@ -1,4 +1,3 @@
-
 local uiManager = {}
 
 
@@ -17,28 +16,33 @@ function uiManager:Init()
 end
 
 function uiManager:ShowUI(uiType)
-    
     --第一次加载ui
     if self.uiDict[uiType] == nil then
-       
         local uiConfigData = UIConfigMgr[uiType]
-        --加载预制件
+        
         local layer = uiConfigData.layer
-        local uiPre = GameObject.Instantiate(Resources.Load(uiConfigData.prefabName), layer.transform)
+
+        --创建蒙版
+
+        --加载预制件
+        local uiPre = GameObject.Instantiate(_G.ResMgr:LoadAsset(uiConfigData.prefabName), layer.transform)
+
         --初始化MVC层
 
-        uiConfigData.code_Controll.New();
-        local mono_uiPre = uiConfigData.code_View.New(uiPre);
+        local mono_uiPre = uiConfigData.code_View.New(uiPre)
 
+        local model = _G.modelManager:GetModel(uiType)
+
+        uiConfigData.code_Controll.New(mono_uiPre, model)
+        
         --注册C层中的MV层
-        uiConfigData.code_Controll.model = _G.modelManager:GetModel(uiType);
-        uiConfigData.code_Controll.view = mono_uiPre;
-
         self.uiDict[uiType] = mono_uiPre
-       
+
+        
     else
         self:GetUI(uiType)
     end
+
 end
 
 function uiManager:CloseUI(uiType)
@@ -48,11 +52,5 @@ end
 function uiManager:GetUI(uiType)
     self.uiDict[uiType].gameObject:SetActive(true)
 end
-
-
-
-
-
-
 
 return uiManager

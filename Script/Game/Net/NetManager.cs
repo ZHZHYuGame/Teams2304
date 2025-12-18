@@ -8,9 +8,7 @@ using UnityEngine;
 public class NetManager :Singleton<NetManager>
 {
    
-   
-
-
+    
     Socket st;
     /// <summary>
     /// 网络数据流
@@ -26,7 +24,7 @@ public class NetManager :Singleton<NetManager>
     {
         st = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        st.BeginConnect("127.0.0.1", 11008, Connect_To_Net_Handle, null);
+        st.BeginConnect("10.161.25.60", 11008, Connect_To_Net_Handle, null);
     }
 
     private void Connect_To_Net_Handle(IAsyncResult ar)
@@ -188,8 +186,6 @@ public class NetManager :Singleton<NetManager>
                 byteData = desc
             };
             CShap_Handle_Lua_Tool.GetInstance().Call_Lua_Net_Msg(toLuaData);
-            
-            S_To_C_GetShopInfos_Msg s_msg = new S_To_C_GetShopInfos_Msg();
            
            
         }

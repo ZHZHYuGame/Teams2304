@@ -1,4 +1,5 @@
-UITypeEnum = 
+UITypeEnum =
 {
-    mainSurface = 1
+    mainSurface = 1,
+    bag = 2
 }

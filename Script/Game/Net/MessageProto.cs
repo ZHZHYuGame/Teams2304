@@ -320,14 +320,14 @@ namespace MyGame {
       }
     }
 
-    /// <summary>Field number for the "bagDataDict" field.</summary>
-    public const int BagDataDictFieldNumber = 2;
-    private static readonly pbc::MapField<int, global::MyGame.NetBagData>.Codec _map_bagDataDict_codec
-        = new pbc::MapField<int, global::MyGame.NetBagData>.Codec(pb::FieldCodec.ForInt32(8), pb::FieldCodec.ForMessage(18, global::MyGame.NetBagData.Parser), 18);
-    private readonly pbc::MapField<int, global::MyGame.NetBagData> bagDataDict_ = new pbc::MapField<int, global::MyGame.NetBagData>();
+    /// <summary>Field number for the "bagList" field.</summary>
+    public const int BagListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::MyGame.NetBagData> _repeated_bagList_codec
+        = pb::FieldCodec.ForMessage(18, global::MyGame.NetBagData.Parser);
+    private readonly pbc::RepeatedField<global::MyGame.NetBagData> bagList_ = new pbc::RepeatedField<global::MyGame.NetBagData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::MapField<int, global::MyGame.NetBagData> BagDataDict {
-      get { return bagDataDict_; }
+    public pbc::RepeatedField<global::MyGame.NetBagData> BagList {
+      get { return bagList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -336,7 +336,7 @@ namespace MyGame {
         output.WriteRawTag(10);
         output.WriteMessage(PlayerData);
       }
-      bagDataDict_.WriteTo(output, _map_bagDataDict_codec);
+      bagList_.WriteTo(output, _repeated_bagList_codec);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -345,7 +345,7 @@ namespace MyGame {
       if (playerData_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerData);
       }
-      size += bagDataDict_.CalculateSize(_map_bagDataDict_codec);
+      size += bagList_.CalculateSize(_repeated_bagList_codec);
       return size;
     }
 
@@ -365,7 +365,7 @@ namespace MyGame {
             break;
           }
           case 18: {
-            bagDataDict_.AddEntriesFrom(input, _map_bagDataDict_codec);
+            bagList_.AddEntriesFrom(input, _repeated_bagList_codec);
             break;
           }
         }

@@ -9,6 +9,7 @@ function modelManager:Init()
 end
 function modelManager:RegisterAllModel()
     self:RegisterModel(UITypeEnum.mainSurface)
+    self:RegisterModel(UITypeEnum.bag)
 end
 
 

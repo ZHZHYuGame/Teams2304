@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class UIEventListener : EventTrigger
 {
 
-    Dictionary<EventTriggerType, Action<object>> eventDict = new();
+    Dictionary<EventTriggerType, Action<PointerEventData>> eventDict = new();
 
     public static UIEventListener AddEvent_To_Obj(GameObject obj)
     {
@@ -19,7 +19,7 @@ public class UIEventListener : EventTrigger
         return e;
     }
 
-    public void AddListener(EventTriggerType type, Action<object> act)
+    public void AddListener(EventTriggerType type, Action<PointerEventData> act)
     {
         if (!eventDict.ContainsKey(type))
         {
@@ -49,10 +49,14 @@ public class UIEventListener : EventTrigger
     {
         base.OnMove(eventData);
     }
-
+    
+    
     public override void OnPointerClick(PointerEventData eventData)
     {
-        base.OnPointerClick(eventData);
+        if (eventDict.ContainsKey(EventTriggerType.PointerClick))
+        {
+            eventDict[EventTriggerType.PointerClick]?.Invoke(eventData);
+        }
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
