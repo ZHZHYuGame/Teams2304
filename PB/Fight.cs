@@ -481,10 +481,10 @@ namespace MyGame {
   /// <summary>
   ///旋转数据xyz三轴
   /// </summary>
-  public sealed class Rotation : pb::IMessage {
-    private static readonly pb::MessageParser<Rotation> _parser = new pb::MessageParser<Rotation>(() => new Rotation());
+  public sealed class RotationData : pb::IMessage {
+    private static readonly pb::MessageParser<RotationData> _parser = new pb::MessageParser<RotationData>(() => new RotationData());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Rotation> Parser { get { return _parser; } }
+    public static pb::MessageParser<RotationData> Parser { get { return _parser; } }
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
@@ -649,9 +649,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "rotation" field.</summary>
     public const int RotationFieldNumber = 7;
-    private global::MyGame.Rotation rotation_;
+    private global::MyGame.RotationData rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::MyGame.Rotation Rotation {
+    public global::MyGame.RotationData Rotation {
       get { return rotation_; }
       set {
         rotation_ = value;
@@ -751,7 +751,7 @@ namespace MyGame {
           }
           case 58: {
             if (rotation_ == null) {
-              rotation_ = new global::MyGame.Rotation();
+              rotation_ = new global::MyGame.RotationData();
             }
             input.ReadMessage(rotation_);
             break;
@@ -835,9 +835,9 @@ namespace MyGame {
 
     /// <summary>Field number for the "rotation" field.</summary>
     public const int RotationFieldNumber = 7;
-    private global::MyGame.Rotation rotation_;
+    private global::MyGame.RotationData rotation_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::MyGame.Rotation Rotation {
+    public global::MyGame.RotationData Rotation {
       get { return rotation_; }
       set {
         rotation_ = value;
@@ -937,7 +937,7 @@ namespace MyGame {
           }
           case 58: {
             if (rotation_ == null) {
-              rotation_ = new global::MyGame.Rotation();
+              rotation_ = new global::MyGame.RotationData();
             }
             input.ReadMessage(rotation_);
             break;

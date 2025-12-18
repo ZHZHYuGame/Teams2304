@@ -39,9 +39,12 @@ namespace Server_2304
             C_To_S_Bullet csMsg = C_To_S_Bullet.Parser.ParseFrom(bytes);
             csMsg.Atk = 20;
             S_To_C_Bullet scMsg = new S_To_C_Bullet();
+            scMsg.PlayerId = csMsg.PlayerId;
             scMsg.BulletID = csMsg.BulletID;
             scMsg.Atk = 20;
-            scMsg.PlayerId = csMsg.PlayerId;
+            scMsg.Rotation.X = csMsg.Rotation.X;
+            scMsg.Rotation.Y = csMsg.Rotation.Y;
+            scMsg.Rotation.Z = csMsg.Rotation.Z;
 
             foreach (var item in NetManager.GetInstance().clientsList)
             {

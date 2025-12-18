@@ -42,7 +42,7 @@ message S_To_C_Disconnect
 	uint32 playerId = 1;
 }
 //旋转数据xyz三轴
-message Rotation
+message RotationData
 {
 	float x =1;
 	float y =2;
@@ -56,7 +56,7 @@ message C_To_S_Bullet
 	float z =4;
 	int32 atk = 5;
 	uint32 BulletID = 6;
-	Rotation rotation = 7;
+	RotationData rotation = 7;
 }
 
 message S_To_C_Bullet
@@ -67,7 +67,7 @@ message S_To_C_Bullet
 	float z =4;
 	int32 atk = 5;
 	uint32 BulletID = 6;
-	Rotation rotation = 7;
+	RotationData rotation = 7;
 }
 
 message C_To_S_RemoveBullet
