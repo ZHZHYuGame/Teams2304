@@ -2,71 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 using XLua;
+using static UnityEditor.Progress;
 [LuaCallCSharp]
 public class ABManager : Singleton<ABManager>
 {
+    
     // Start is called before the first frame update
     public void Start()
     {
-        //string colorpath = Application.streamingAssetsPath + "/AssetBundle/color.u3d";
-        //AssetBundle cab = AssetBundle.LoadFromFile(colorpath);
-
-        ////资源包的路径
-        //string path = Application.streamingAssetsPath + "/AssetBundle/cube.u3d";
-        ////通过资源包的路径找到这一个资源包
-        //AssetBundle aBundle = AssetBundle.LoadFromFile(path);
-        ////通过资源包找到里面存在的物体
-        //GameObject obj = aBundle.LoadAsset<GameObject>("cube");
-        //Instantiate(obj);
-
         Init();
-        //var obj= LoadAsset<GameObject>("cube");
-        //GameObject.Instantiate(obj);
-        //List<ABAsset> paths = GetAllPath($"{Application.persistentDataPath}/AssetMainfast.txt");
-        //foreach (ABAsset asset in paths)
-        //{
-        //    string path = $"{Application.persistentDataPath}/{asset.abName}";
-        //    AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
-        //    string name = asset.abName.Split('.')[0];
-        //    GameObject obj = assetBundle.LoadAsset<GameObject>(name);
-        //    if(obj!=null)
-        //    {
-        //        Instantiate(obj);
-        //    }
-            
-        //}
-    }
-
-    private List<ABAsset> GetAllPath(string v)
-    {
-        string str= File.ReadAllText(v);
-        string[] strs = str.Trim().Split(new string[]{ "\r\n"},StringSplitOptions.None);
-        List<ABAsset> aBAssets = new List<ABAsset>();
-        foreach(var s in strs)
-        {
-            ABAsset aB = new ABAsset(s);
-            aBAssets.Add(aB);
-        }
-        return aBAssets;
     }
 
     GameObject m_obj;
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        if (m_obj==null)
-    //        {
-    //            string mPath = Application.streamingAssetsPath + "/AssetBundle/materi.u3d";
-    //            AssetBundle aBundle=  AssetBundle.LoadFromFile(mPath);
-    //            m_obj = aBundle.LoadAsset<GameObject>("materi");
-    //        }
-    //        GameObject.Instantiate(m_obj);
-    //    }
-    //}
 
     /// <summary>
     /// ab包的缓存
@@ -80,11 +31,120 @@ public class ABManager : Singleton<ABManager>
     /// AB资源路径
     /// </summary>
     private string abPath;
+    private Dictionary<string, Sprite[]> allSprites= new Dictionary<string, Sprite[]>();
     public void Init()
     {
-        //abPath = Path.Combine(Application.streamingAssetsPath + "/ABs");
         InitDependence();
+        Asstes_ABRule();
     }
+
+    void Asstes_ABRule()
+    {
+        Tool_Time_Manager.GetInstance().Delay_Handle_Most(600,ABDestoryRule);
+        Tool_Time_Manager.GetInstance().Delay_Handle_Most(300, TwoCache_ABRule);
+    }
+    /// <summary>
+    /// 資源釋放規則
+    /// 在什麽時候釋放？（數量與時間）
+    /// 如果在釋放后馬上又要使用（釋放隊列）
+    /// 如果使用的頻率不大（時間）
+    /// 如果緩存太多（數量）
+    /// 如果存在的時間太長（不用的情況下）（時間）
+    /// </summary>
+    void ABDestoryRule()
+    {
+        Assets_ABCountRule();
+        Assets_ABLifeTimeRule();
+    }
+    /// <summary>
+    /// 資源的數量判斷規則
+    /// </summary>
+    void Assets_ABCountRule()
+    {
+        if(abCache.Count>200)
+        {
+            Debug.Log("AB包资源数异常，走出规定最大上限值，请检查相关泄漏资源情况");
+            foreach (var item in abCache.Values)
+            {
+                if (item.count <= 0 && item.isActive)
+                {
+                    item.isActive = false;
+                    DestoryAssetBundle_TwoCache(item.name);
+                    break;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// AB包资源按时检测的时间
+    /// </summary>
+    int abCheckTimes = 10;
+    /// <summary>
+    /// 2级缓存的检测时间
+    /// </summary>
+    int twoCacheTimes = 5;
+    /// <summary>
+    /// 二级缓存（进行最终的释放与复用）
+    /// </summary>
+    Dictionary<string, MyAssetBundle> TwoCache_AB = new Dictionary<string, MyAssetBundle>();
+    void Assets_ABLifeTimeRule()
+    {
+        List<string> keys = abCache.Keys.ToList();
+        for (int i = 0; i < keys.Count ; i++)
+        {
+            var ab = abCache[keys[i]];
+            var abLifeTimes = (DateTime.Now.Ticks - ab.lifeCreateTimes) / 10000000;
+            if (abLifeTimes >= abCheckTimes && ab.count <= 0 && ab.isActive)
+            {
+                ab.isActive = false;
+                DestoryAssetBundle_TwoCache(ab.name);
+            }
+        }
+        //foreach(var ab in abCache.Values)
+        //{
+        //    var abLifeTimes = (DateTime.Now.Ticks - ab.lifeCreateTimes) / 10000000;
+        //    if(abLifeTimes>=abCheckTimes&&ab.count<=0)
+        //    {
+        //        DestoryAssetBundle_TwoCache(ab.name);
+
+        //        //TwoCache_AB.Remove(ab.name);
+        //    }
+        //}
+    }
+
+    void DestoryAssetBundle_TwoCache(string abName)
+    {
+        Debug.Log("进入二级缓存" +abName);
+        TwoCache_AB.Add(abName, abCache[abName]);
+    }
+    private void TwoCache_ABRule()
+    {
+        List<string> keys = TwoCache_AB.Keys.ToList();
+        for (int i=0;i<keys.Count;i++)
+        {
+            var ab = TwoCache_AB[keys[i]];
+            var abLifeTimes = (DateTime.Now.Ticks - ab.lifeCreateTimes) / 10000000;
+            if (abLifeTimes >= twoCacheTimes)
+            {
+                Debug.Log("释放" + ab.name);
+                TwoCache_AB[ab.name].ab.Unload(false);
+                TwoCache_AB.Remove(ab.name);
+                abCache.Remove(ab.name);
+            }
+        }
+        //foreach (var ab in TwoCache_AB.Values)
+        //{
+        //    var abLifeTimes = (DateTime.Now.Ticks - ab.lifeCreateTimes) / 10000000;
+        //    if (abLifeTimes >= twoCacheTimes)
+        //    {
+        //        Debug.Log("释放"+ab.name);
+        //        TwoCache_AB[ab.name].ab.Unload(false);
+        //        abCache.Remove(ab.name);
+        //    }
+        //}
+    }
+
     /// <summary>
     /// 初始化资源包的依赖关系
     /// </summary>
@@ -153,7 +213,8 @@ public class ABManager : Singleton<ABManager>
         //加载真正需要的资源自己
         MyAssetBundle my = LoadAssetBundle(assetBundleName);
         Debug.Log(my);
-        return my.ab.LoadAllAssets<GameObject>()[0];///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
+        var obj = my.ab.LoadAllAssets<GameObject>()[0];
+        return obj;///因为打包工具中，一个资源包里就只有一个资源。所以是[0]
     }
     /// <summary>
     /// 加载不在图集中Sprite
@@ -199,8 +260,17 @@ public class ABManager : Singleton<ABManager>
         }
         MyAssetBundle my = LoadAssetBundle(assetBundleName);
         Debug.Log(my);
-        Sprite[] sprites = my.ab.LoadAssetWithSubAssets<Sprite>(assetBundleName);
-        Sprite sprite = System.Array.Find(sprites, item => item.name == Sprite_Name);
+        Sprite sprite;
+        if (!allSprites.ContainsKey(Atlas_Name))
+        {
+            Sprite[] sprites = my.ab.LoadAssetWithSubAssets<Sprite>(assetBundleName);
+            allSprites.Add(Atlas_Name, sprites);
+            sprite= System.Array.Find(sprites, item => item.name == Sprite_Name);
+        }
+        else
+        {
+            sprite = System.Array.Find(allSprites[Atlas_Name], item => item.name == Sprite_Name);
+        }
         return sprite;
     }
     public T LoadAsset<T>(string name) where T : UnityEngine.Object
@@ -233,7 +303,9 @@ public class ABManager : Singleton<ABManager>
         string path = Application.persistentDataPath + "/" + assetbundlename;
         if (abCache.ContainsKey(assetbundlename))
         {
+            abCache[assetbundlename].isActive = true;
             abCache[assetbundlename].count++;///之前加载过这个AB包，计数增加就可以了。
+            abCache[assetbundlename].lifeCreateTimes = DateTime.Now.Ticks;
             return abCache[assetbundlename];
         }
         else
@@ -242,7 +314,7 @@ public class ABManager : Singleton<ABManager>
             {
                 ///没加载过，加载一波，放入缓存。
                 AssetBundle ab = AssetBundle.LoadFromFile(path);
-                MyAssetBundle my = new MyAssetBundle(ab);
+                MyAssetBundle my = new MyAssetBundle(ab,assetbundlename);
                 abCache.Add(assetbundlename, my);
                 return my;
             }
@@ -282,11 +354,6 @@ public class ABManager : Singleton<ABManager>
         if (abCache.ContainsKey(abName))
         {
             abCache[abName].count--;///之前加载过这个AB包，计数增加就可以了。
-            if (abCache[abName].count <= 0)
-            {
-                abCache[abName].ab.Unload(false);
-                abCache.Remove(abName);
-            }
         }
     }
 }
@@ -299,10 +366,18 @@ public class MyAssetBundle
     public int count;
 
     public AssetBundle ab;
-    public MyAssetBundle(AssetBundle ab)
+
+    public long lifeCreateTimes;
+
+    public string name;
+
+    public bool isActive=true;
+    public MyAssetBundle(AssetBundle ab, string name)
     {
         count = 1;
         this.ab = ab;
+        lifeCreateTimes = DateTime.Now.Ticks;
+        this.name = name;
     }
 
 }

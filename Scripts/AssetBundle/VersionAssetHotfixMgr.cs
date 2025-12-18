@@ -15,6 +15,7 @@ public class VersionAssetHotfixMgr : MonoBehaviour
     bool isplay = false;
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         //MessageControll.GetInstance().AddListener(Client_Const_Event.Hotfix_Confirm_Event, Hotfix_Confirm_Event_Handle);
     }
     /// <summary>
@@ -300,5 +301,6 @@ public class VersionAssetHotfixMgr : MonoBehaviour
         {
             Game.GetInstance().Update();
         }
+        Tool_Time_Manager.GetInstance().Update();  
     }
 }
