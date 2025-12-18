@@ -478,6 +478,104 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///旋转数据xyz三轴
+  /// </summary>
+  public sealed class Rotation : pb::IMessage {
+    private static readonly pb::MessageParser<Rotation> _parser = new pb::MessageParser<Rotation>(() => new Rotation());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Rotation> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 1;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 2;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "z" field.</summary>
+    public const int ZFieldNumber = 3;
+    private float z_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Z {
+      get { return z_; }
+      set {
+        z_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+      if (Z != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Z);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      if (Z != 0F) {
+        size += 1 + 4;
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Z = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed class C_To_S_Bullet : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_Bullet> _parser = new pb::MessageParser<C_To_S_Bullet>(() => new C_To_S_Bullet());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -549,6 +647,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "rotation" field.</summary>
+    public const int RotationFieldNumber = 7;
+    private global::MyGame.Rotation rotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.Rotation Rotation {
+      get { return rotation_; }
+      set {
+        rotation_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -575,6 +684,10 @@ namespace MyGame {
         output.WriteRawTag(48);
         output.WriteUInt32(BulletID);
       }
+      if (rotation_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Rotation);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -597,6 +710,9 @@ namespace MyGame {
       }
       if (BulletID != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      if (rotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
       }
       return size;
     }
@@ -631,6 +747,13 @@ namespace MyGame {
           }
           case 48: {
             BulletID = input.ReadUInt32();
+            break;
+          }
+          case 58: {
+            if (rotation_ == null) {
+              rotation_ = new global::MyGame.Rotation();
+            }
+            input.ReadMessage(rotation_);
             break;
           }
         }
@@ -710,6 +833,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "rotation" field.</summary>
+    public const int RotationFieldNumber = 7;
+    private global::MyGame.Rotation rotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.Rotation Rotation {
+      get { return rotation_; }
+      set {
+        rotation_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -736,6 +870,10 @@ namespace MyGame {
         output.WriteRawTag(48);
         output.WriteUInt32(BulletID);
       }
+      if (rotation_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Rotation);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -758,6 +896,9 @@ namespace MyGame {
       }
       if (BulletID != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BulletID);
+      }
+      if (rotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
       }
       return size;
     }
@@ -792,6 +933,13 @@ namespace MyGame {
           }
           case 48: {
             BulletID = input.ReadUInt32();
+            break;
+          }
+          case 58: {
+            if (rotation_ == null) {
+              rotation_ = new global::MyGame.Rotation();
+            }
+            input.ReadMessage(rotation_);
             break;
           }
         }
