@@ -10,10 +10,11 @@ function BagView:__init(prefab)
     self.CloseBut.onClick:AddListener(function()
         _G.UImgr:CloseUI(UITypeEnum.bag, false)
     end)
-    self.ShowData=nil
+    self.ShowData = nil
     self.showIcon = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(0):GetComponent("Image")
     self.showName = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(1):GetComponent("Text")
-    self.showDes = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(2).transform:GetChild(0):GetComponent("Text")
+    self.showDes = prefab.transform:GetChild(0).transform:GetChild(2).transform:GetChild(2).transform:GetChild(0)
+    :GetComponent("Text")
 
 
     self.All = prefab.transform:GetChild(0).transform:GetChild(1).transform:GetChild(0):GetComponent("Toggle")
@@ -23,54 +24,54 @@ function BagView:__init(prefab)
     self.All.onValueChanged:AddListener(function(isOn)
         if isOn then
             for key, value in pairs(self.BagCell) do
-                if value.data~=nil then
-                    value:ShowUI(self.bagdata[key])
-                end
-                
+               
+                value:ShowUI(self.bagdata[key])
+
             end
         end
     end)
     self.Equipment.onValueChanged:AddListener(function(isOn)
         if isOn then
             for key, value in pairs(self.BagCell) do
-                if value.data~=nil then
+                if value.data ~= nil then
                     if value.data.InventoryType == "装备" then
                         value:ShowUI(self.bagdata[key])
                     else
                         value:CloseUI()
                     end
+                else
+                    value:CloseUI()
                 end
-                
-                
             end
         end
     end)
     self.Medicine.onValueChanged:AddListener(function(isOn)
         if isOn then
             for key, value in pairs(self.BagCell) do
-                if value.data~=nil then
+                if value.data ~= nil then
                     if value.data.InventoryType == "药品" then
                         value:ShowUI(self.bagdata[key])
                     else
                         value:CloseUI()
                     end
+                else
+                    value:CloseUI()
                 end
-                
             end
         end
     end)
     self.other.onValueChanged:AddListener(function(isOn)
         if isOn then
             for key, value in pairs(self.BagCell) do
-                if value.data~=nil then
-                    if value.data.InventoryType == "宝箱"  or value.data.InventoryType == "经验书"then
+                if value.data ~= nil then
+                    if value.data.InventoryType == "宝箱" or value.data.InventoryType == "经验书" then
                         value:ShowUI(self.bagdata[key])
                     else
                         value:CloseUI()
                     end
+                else
+                    value:CloseUI()
                 end
-                
-                
             end
         end
     end)
@@ -88,37 +89,35 @@ end
 
 function BagView:RefreshBagItemUI(data)
     self.bagdata = data
-   
+
     for i = 0, self.bagdata.Count - 1 do
-     
         if self.bagdata[i].Data ~= nil then
-         
             self.BagCell[i]:RefreshBagItem(self.bagdata[i])
             self:FirstRefreshShow(self.bagdata[0])
         end
     end
 end
+
 function BagView:RefreshShow(data)
     if data[1] == nil then
         return
     end
-    self.ShowData=data[1]
+    self.ShowData = data[1]
     self.showIcon.sprite = ABManager.GetInstance():LoadAsset_Sprite(self.ShowData.Icon)
     self.showName.text = self.ShowData.Name
     self.showDes.text = self.ShowData.Des
-    
-    
 end
+
 function BagView:FirstRefreshShow(data)
     if data.Data == nil then
         return
     end
-    self.ShowData=data.Data
+    self.ShowData = data.Data
     self.showIcon.sprite = ABManager.GetInstance():LoadAsset_Sprite(self.ShowData.Icon)
     self.showName.text = self.ShowData.Name
     self.showDes.text = self.ShowData.Des
-    
 end
+
 function BagView:OnEnable()
 
 end

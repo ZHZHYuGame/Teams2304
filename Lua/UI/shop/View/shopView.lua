@@ -23,6 +23,17 @@ function shopView:__init(prefab)
     self.showReduceBut = prefab.transform:GetChild(1).transform:GetChild(5):GetComponent("Button")
     self.showBuyBut = prefab.transform:GetChild(1).transform:GetChild(6):GetComponent("Button")
     self.showPriceText = prefab.transform:GetChild(1).transform:GetChild(6).transform:GetChild(1):GetComponent("Text")
+
+    self.showInputText.onValueChanged:AddListener(function(text)
+        local inputNum = tonumber(text)
+        if not inputNum then
+            self.showInputText.text = "1"
+            return
+        end
+        if inputNum > 9999 then
+            self.showInputText.text = "9999"
+        end
+    end)
     self.showAddBut.onClick:AddListener(function()
         self.showNum = self.showNum + 1
         self.showInputText.text = self.showNum
@@ -32,11 +43,15 @@ function shopView:__init(prefab)
         self.showInputText.text = self.showNum
         if self.showNum <= 1 then
             self.showNum = 1
+            self.showInputText.text = self.showNum
+        elseif self.showNum >= 9999 then
+            self.showNum = 9999
         end
     end)
     self.showBuyBut.onClick:AddListener(function()
         local BuyGoodsData = MyGame.C_To_S_BuyGood()
         BuyGoodsData.Id = self.ShowData.Id
+        self.showNum = tonumber(self.showInputText.text)
         BuyGoodsData.Num = self.showNum
         CS.NetManager.GetInstance():SendMessage(CS.NetID.C_To_S_BuyGood, Protobuf.ToByteArray(BuyGoodsData))
         self.showNum = 1
