@@ -32,40 +32,41 @@ public class BulletMgr : Singleton<BulletMgr>
         if (!biuDic.ContainsKey(scMsg.BulletID))
         {
             Transform atkPlayer = CreatPlayer.instance.GetPlayer(scMsg.PlayerId);
-            InitBullet(scMsg.PlayerId, atkPlayer,scMsg.BulletID);
+            InitBullet(scMsg.PlayerId, atkPlayer,scMsg.BulletID,scMsg.Rotation);
         }
     }
 
-    public void InitBullet(uint playerID,Transform player,uint bulletID)
+    public void InitBullet(uint playerID,Transform player,uint bulletID,RotationData rotation)
     {
-        Debug.Log("EnemyDan");
         GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>("Bullet"));
         obj.transform.position = player.transform.position+player.transform.forward+Vector3.up;
         obj.transform.rotation = player.transform.rotation;
+        obj.transform.rotation=Quaternion.Euler(rotation.X,rotation.Y,rotation.Z);
         obj.name = playerID.ToString();
         obj.AddComponent<Bullet>().Init(playerID,bulletID);
         biuDic[bulletID]=obj;
     }
     public void InitBullet(uint playerID,Transform player)
     {
-        Debug.Log("PlayerDan");
         GameObject obj = GameObject.Instantiate(Resources.Load<GameObject>("Bullet"));
         obj.transform.position = player.transform.position+player.transform.forward+Vector3.up;
-        obj.transform.rotation = player.transform.rotation;
+        obj.transform.rotation = Camera.main.transform.rotation;
         obj.name = playerID.ToString();
         obj.AddComponent<Bullet>().Init(playerID,bulletID);
         C_To_S_Bullet  msg = new C_To_S_Bullet();
         msg.BulletID = bulletID;
         msg.PlayerId = CreatPlayer.PlayerID;
+        msg.Rotation.X=Camera.main.transform.rotation.eulerAngles.x;
+        msg.Rotation.Y=Camera.main.transform.rotation.eulerAngles.y;
+        msg.Rotation.Z=Camera.main.transform.rotation.eulerAngles.z;
         NetManager.GetInstance().SendMessage(NetID.C_To_S_Bullet,msg.ToByteArray());
         bulletID++;
     }
     
     public void RemoveBullet(uint bulletID)
     {
-        Debug.Log("删除"+bulletID);
         if (biuDic.ContainsKey(bulletID))
-        {Debug.Log("成功");
+        {
             GameObject.Destroy(biuDic[bulletID]);
             biuDic.Remove(bulletID);
         }
