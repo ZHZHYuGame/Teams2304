@@ -16,6 +16,24 @@ namespace Server_2304
         {
             MessageControll.GetInstance().AddListener(NetID.C_To_S_PlayerOperation,InitPlayer);
             MessageControll.GetInstance().AddListener(NetID.C_To_S_Disconnect,DisconnectPlayer);
+            MessageControll.GetInstance().AddListener(NetID.C_To_S_ExitGame,C_To_S_ExitGameHandle);
+        }
+
+        private void C_To_S_ExitGameHandle(object obj)
+        {
+            object[] objs = obj as object[];
+            Byte[] bytes = objs[0] as Byte[];
+            Socket st = objs[1] as Socket;
+            C_To_S_ExitGame csMsg = C_To_S_ExitGame.Parser.ParseFrom(bytes);
+            S_To_C_ExitGame scMsg = new  S_To_C_ExitGame();
+            scMsg.PlayerId = csMsg.PlayerId;
+            foreach (var item in NetManager.GetInstance().clientsList)
+            {
+                if (item.st !=st)
+                {
+                    NetManager.GetInstance().SendMessage(NetID.S_To_C_Disconnect,scMsg.ToByteArray(),item.st);
+                }
+            }
         }
 
         private void DisconnectPlayer(object o)

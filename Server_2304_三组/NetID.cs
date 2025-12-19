@@ -28,4 +28,6 @@ public class NetID
     public static int C_To_S_PlayerAlive = 10011;
     public static int C_To_S_PlayerAnimator = 10012;
     public static int S_To_C_PlayerAnimator = 10013;
+    public static int C_To_S_ExitGame = 10014;
+    public static int S_To_C_ExitGame = 10015;
 }
