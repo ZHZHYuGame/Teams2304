@@ -18,7 +18,10 @@ namespace Server_2304
             MessageControll.GetInstance().AddListener(NetID.C_To_S_Disconnect,DisconnectPlayer);
             MessageControll.GetInstance().AddListener(NetID.C_To_S_ExitGame,C_To_S_ExitGameHandle);
         }
-
+        /// <summary>
+        /// 退出游戏
+        /// </summary>
+        /// <param name="obj"></param>
         private void C_To_S_ExitGameHandle(object obj)
         {
             object[] objs = obj as object[];
@@ -27,6 +30,7 @@ namespace Server_2304
             C_To_S_ExitGame csMsg = C_To_S_ExitGame.Parser.ParseFrom(bytes);
             S_To_C_ExitGame scMsg = new  S_To_C_ExitGame();
             scMsg.PlayerId = csMsg.PlayerId;
+
             foreach (var item in NetManager.GetInstance().clientsList)
             {
                 if (item.st !=st)
