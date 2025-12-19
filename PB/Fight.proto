@@ -110,4 +110,13 @@ message S_To_C_PlayerAnimator
   string AnimatorName=2;
   bool aniType = 3;
 }
+//玩家退出游戏，并非断开连接
+message C_To_S_ExitGame
+{
+	uint32 playerId = 1;
+}
+message S_To_C_ExitGame
+{
+	uint32 playerId = 1;
+}
 
