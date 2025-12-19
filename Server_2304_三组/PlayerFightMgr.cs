@@ -30,11 +30,8 @@ namespace Server_2304
             C_To_S_ExitGame csMsg = C_To_S_ExitGame.Parser.ParseFrom(bytes);
             S_To_C_ExitGame scMsg = new  S_To_C_ExitGame();
             scMsg.PlayerId = csMsg.PlayerId;
-<<<<<<< HEAD
-
-=======
             PlayerHpMgr.GetInstance().RemovePlayerHp(scMsg.PlayerId);
->>>>>>> 4e0034e727f4d3d58caed3e020328ce48b3ae5bf
+
             foreach (var item in NetManager.GetInstance().clientsList)
             {
                 if (item.st !=st)
