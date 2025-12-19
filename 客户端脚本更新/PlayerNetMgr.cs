@@ -32,4 +32,23 @@ public class PlayerNetMgr : Singleton<PlayerNetMgr>
         csMsg.BulletID=bulletID;
         NetManager.GetInstance().SendMessage(NetID.C_To_S_ReomveBullet,csMsg.ToByteArray());
     }
+    /// <summary>
+    /// 告诉服务器自己复活了
+    /// </summary>
+    /// <param name="playerId"></param>
+    public void PlayerAliveNet(uint playerId)
+    {
+        C_To_S_PlayerAlive csMsg = new C_To_S_PlayerAlive();
+        csMsg.PlayerId=playerId;
+        NetManager.GetInstance().SendMessage(NetID.C_To_S_PlayerAlive,csMsg.ToByteArray());
+    }
+    /// <summary>
+    /// 告诉其他客户端，自己退出游戏了
+    /// </summary>
+    public void PlayerExitGame()
+    {
+        C_To_S_ExitGame csMsg = new C_To_S_ExitGame();
+        csMsg.PlayerId = CreatPlayer.PlayerID;
+        NetManager.GetInstance().SendMessage(NetID.C_To_S_ExitGame,csMsg.ToByteArray());
+    }
 }
