@@ -69,8 +69,6 @@ function uiManager:ShowUI(uiType)
         -- 2.6 关联MVC三者的引用（互相持有，方便调用）
         controller.model = model    -- 控制器持有模型
         controller.view = mono_UICode -- 控制器持有视图
-        mono_UICode.controller = controller -- 视图持有控制器
-        mono_UICode.model = model   -- 视图持有模型
 
         -- 2.7 将创建好的UI信息缓存到字典中（方便后续复用）
         self.uiDict[uiType] = {

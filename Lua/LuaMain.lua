@@ -2,6 +2,7 @@ require("Lipus/BaseClass")
 require("Lipus/head")
 require("Net/NetManager")
 require("Lipus/LuaUtil")
+Json = require("Lipus/json")
 require("Net/NetID")
 require("UI/UIID")
 require("Message/UI_MessageControll")
@@ -17,9 +18,7 @@ require("UI/UIConfigMgr")
 
 local bagbtn
 function LuaStart()
-    _G.UImgr:ShowUI(UITypeEnum.main)
-    _G.UImgr:ShowUI(UITypeEnum.shop)
-    _G.UImgr:ShowUI(UITypeEnum.bag)
+    _G.UImgr:ShowUI(UITypeEnum.log)
 end
 
 function LuaUpdata()

@@ -9,4 +9,8 @@ NetID = {
     S_To_C_SendGood = 1008,
     C_To_S_Main = 1009,
     S_To_C_Main = 1010,
+    C_To_S_Register = 1011,
+    S_To_C_Register = 1012,
+    C_To_S_Log = 1013,
+    S_To_C_Log = 1014,
 }
