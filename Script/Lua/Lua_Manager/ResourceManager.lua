@@ -1,7 +1,7 @@
 local resourcesManager = {}
 --初始化资源包
 function resourcesManager:Init()
-    --ABManager.GetInstance():OnInit()
+    ABManager.GetInstance():OnInit()
 end
 --查找AB包图集中的精灵
 function resourcesManager:LoadAtlasAsset(Path, name)
@@ -23,6 +23,11 @@ end
 function resourcesManager:LoadPictureAsset(name)
     local obj = ABManager.GetInstance():LoadAssetLua("jpg/" .. name, typeof(GameObject))
     return obj
+end
+--卸载一个资源
+function resourcesManager:UnLoadAssetBundle(name)
+    ABManager.GetInstance():UnLoadAssetBundle(name)
+
 end
 
 return resourcesManager

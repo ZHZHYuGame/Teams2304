@@ -12,14 +12,16 @@ public class ABManager : Singleton<ABManager>
     /// <summary>
     /// ab包的缓存
     /// </summary>
+    ///  
     private Dictionary<string, MyAssetBundle> abCache = new Dictionary<string, MyAssetBundle>();
+    private Dictionary<string, MyAssetBundle> secondLevelAbCache = new Dictionary<string, MyAssetBundle>();
     /// <summary>
     /// 用来存储所有的资源依赖关系的数据  
     /// </summary> 
     private Dictionary<string, string[]> allDependDict;
     /// <summary>
     /// AB资源路径
-    /// </summary>   
+    /// </summary>  
     private string abPath;
     public void OnInit()
     {
@@ -31,6 +33,7 @@ public class ABManager : Singleton<ABManager>
     /// </summary>
     public void InitDependence()
     {
+        TimeManager.GetInstance().Delay_Hadnle_Most(60,UnLoadAssetBundle);
         if (allDependDict == null)
         {
             allDependDict = new Dictionary<string, string[]>();
@@ -259,11 +262,23 @@ public class ABManager : Singleton<ABManager>
             abCache[abName].count--;///之前加载过这个AB包，计数增加就可以了。
             if (abCache[abName].count <= 0)
             {
-                abCache[abName].ab.Unload(false);
+                //abCache[abName].ab.Unload(false);
+                secondLevelAbCache.Add(abName,abCache[abName]);
                 abCache.Remove(abName);
+                
             }
         }
     }
+
+    private void UnLoadAssetBundle()
+    {
+        foreach (var variable in secondLevelAbCache)
+        {
+            variable.Value.ab.Unload(false);
+        }
+        secondLevelAbCache.Clear();
+    }
+    
 }
 
 public class MyAssetBundle
