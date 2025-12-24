@@ -14,6 +14,7 @@ public class NetID
     public static int C_To_S_Player_Res = 1009;
     public static int S_To_C_Player_Login = 1010;
     public static int S_To_C_PlayerInfo = 1011;
+    public static int S_To_C_RedPoint_Msg = 1012;
     
     public static int C_To_S_PlayerOperation = 10001;
     public static int S_To_C_PlayerOperation = 10002;

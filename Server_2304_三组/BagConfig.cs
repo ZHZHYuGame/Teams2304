@@ -20,6 +20,7 @@ namespace Server_2304
         }
         private void BayShopHandler(object obj)
         {
+            
             object[] ooo = obj as object[];
             byte[] data = ooo[0] as byte[];
             Socket st = ooo[1] as Socket;
@@ -28,7 +29,7 @@ namespace Server_2304
             
             ShopData shop = ShopConfig.GetInstance().GetShop(csMsg.GoodID);
             S_To_C_S_BayShop_Msg bagmsg = new S_To_C_S_BayShop_Msg();
-            
+            RedPointMgr.GetInstance().RefreshRedPoint(UIRedPointType.UiBagIcon,true,10,st);
             if (PlayerConfig.GetInstance().SetGold(-shop.Sale,csMsg.PlayerId))
             {
                 BagData bagData = AddBags(shop, PlayerConfig.GetInstance().GetBags(csMsg.PlayerId));//加入背包并返回数据改变的具体格子
@@ -46,6 +47,7 @@ namespace Server_2304
                     bagmsg.BagData = bagData;
                     bagmsg.Type = BayType.Success;
                     bagmsg.Glod = PlayerConfig.GetInstance().GetGold(csMsg.PlayerId);
+                    
                 }
             }
             else
