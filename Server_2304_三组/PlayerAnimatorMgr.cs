@@ -34,6 +34,7 @@ namespace Server_2304
             scMsg.PlayerId = csMsg.PlayerId;
             scMsg.AnimatorName = csMsg.AnimatorName;
             scMsg.AniType = csMsg.AniType;
+            scMsg.Type = csMsg.Type;
             
             foreach (var item in NetManager.GetInstance().clientsList)
             { 
