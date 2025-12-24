@@ -13,7 +13,8 @@ public class HPManger : Singleton<HPManger>
     private bool isnohp;
     public void Init()
     {
-        playerSlider=GameObject.Find("Canvas").transform.Find("PlayerSlider").GetComponent<Slider>();
+        isnohp = false;
+        playerSlider=GameObject.Find("Canvas1").transform.Find("PlayerSlider").GetComponent<Slider>();
         MessageControll.GetInstance().AddListener(NetID.S_To_C_PlayerHp,RefreshHp);
     }
 
@@ -36,7 +37,7 @@ public class HPManger : Singleton<HPManger>
             if (cmsg.Type == PlayerType.Dead)
             {
                 Player.instance.Nowtype = PlayerType.Dead;
-                PlayerAnimatorMgr.GetInstance().SendAnimator(Player.instance.playerId,"Dead");
+                PlayerAnimatorMgr.GetInstance().SendAnimator(Player.instance.playerId,"Dead",true,PlayerAniType.BoolType);
             }
         }
     }
