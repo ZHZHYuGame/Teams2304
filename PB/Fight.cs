@@ -247,17 +247,6 @@ namespace MyGame {
       }
     }
 
-    /// <summary>Field number for the "hp" field.</summary>
-    public const int HpFieldNumber = 8;
-    private int hp_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Hp {
-      get { return hp_; }
-      set {
-        hp_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -288,10 +277,6 @@ namespace MyGame {
         output.WriteRawTag(58);
         output.WriteString(Name);
       }
-      if (Hp != 0) {
-        output.WriteRawTag(64);
-        output.WriteInt32(Hp);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -317,9 +302,6 @@ namespace MyGame {
       }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-      }
-      if (Hp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Hp);
       }
       return size;
     }
@@ -358,10 +340,6 @@ namespace MyGame {
           }
           case 58: {
             Name = input.ReadString();
-            break;
-          }
-          case 64: {
-            Hp = input.ReadInt32();
             break;
           }
         }
@@ -576,6 +554,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///发射子弹
+  /// </summary>
   public sealed class C_To_S_Bullet : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_Bullet> _parser = new pb::MessageParser<C_To_S_Bullet>(() => new C_To_S_Bullet());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -762,6 +743,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///发射子弹
+  /// </summary>
   public sealed class S_To_C_Bullet : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_Bullet> _parser = new pb::MessageParser<S_To_C_Bullet>(() => new S_To_C_Bullet());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -948,6 +932,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///删除子弹
+  /// </summary>
   public sealed class C_To_S_RemoveBullet : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_RemoveBullet> _parser = new pb::MessageParser<C_To_S_RemoveBullet>(() => new C_To_S_RemoveBullet());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -999,6 +986,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///删除子弹
+  /// </summary>
   public sealed class S_To_C_RemoveBullet : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_RemoveBullet> _parser = new pb::MessageParser<S_To_C_RemoveBullet>(() => new S_To_C_RemoveBullet());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1050,6 +1040,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///攻击消息
+  /// </summary>
   public sealed class C_To_S_PlayerAtk : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_PlayerAtk> _parser = new pb::MessageParser<C_To_S_PlayerAtk>(() => new C_To_S_PlayerAtk());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1145,6 +1138,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///玩家血量
+  /// </summary>
   public sealed class S_To_C_PlayerHp : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_PlayerHp> _parser = new pb::MessageParser<S_To_C_PlayerHp>(() => new S_To_C_PlayerHp());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1240,6 +1236,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///玩家死亡
+  /// </summary>
   public sealed class C_To_S_PlayerAlive : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_PlayerAlive> _parser = new pb::MessageParser<C_To_S_PlayerAlive>(() => new C_To_S_PlayerAlive());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1313,6 +1312,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///玩家动画
+  /// </summary>
   public sealed class C_To_S_PlayerAnimator : pb::IMessage {
     private static readonly pb::MessageParser<C_To_S_PlayerAnimator> _parser = new pb::MessageParser<C_To_S_PlayerAnimator>(() => new C_To_S_PlayerAnimator());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1557,6 +1559,9 @@ namespace MyGame {
 
   }
 
+  /// <summary>
+  ///玩家退出游戏，并非断开连接
+  /// </summary>
   public sealed class S_To_C_ExitGame : pb::IMessage {
     private static readonly pb::MessageParser<S_To_C_ExitGame> _parser = new pb::MessageParser<S_To_C_ExitGame>(() => new S_To_C_ExitGame());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1600,6 +1605,111 @@ namespace MyGame {
             break;
           case 8: {
             PlayerId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家金币增加或扣除消息
+  /// </summary>
+  public sealed class C_To_S_Gold : pb::IMessage {
+    private static readonly pb::MessageParser<C_To_S_Gold> _parser = new pb::MessageParser<C_To_S_Gold>(() => new C_To_S_Gold());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_To_S_Gold> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "gold" field.</summary>
+    public const int GoldFieldNumber = 1;
+    private int gold_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Gold {
+      get { return gold_; }
+      set {
+        gold_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Gold != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Gold);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Gold != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Gold);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Gold = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed class S_To_C_Gold : pb::IMessage {
+    private static readonly pb::MessageParser<S_To_C_Gold> _parser = new pb::MessageParser<S_To_C_Gold>(() => new S_To_C_Gold());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_To_C_Gold> Parser { get { return _parser; } }
+
+    /// <summary>Field number for the "gold" field.</summary>
+    public const int GoldFieldNumber = 1;
+    private int gold_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Gold {
+      get { return gold_; }
+      set {
+        gold_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Gold != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Gold);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Gold != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Gold);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Gold = input.ReadInt32();
             break;
           }
         }
