@@ -28,7 +28,6 @@ message S_To_C_PlayerOperation
   float roundY =5;
   string PathName = 6;
   string Name = 7;
-  int32 hp=8;
 }
 
 //玩家断开链接
@@ -48,6 +47,7 @@ message RotationData
 	float y =2;
 	float z =3;
 }
+//发射子弹
 message C_To_S_Bullet
 {
 	uint32 playerId = 1;
@@ -58,7 +58,7 @@ message C_To_S_Bullet
 	uint32 BulletID = 6;
 	RotationData rotation = 7;
 }
-
+//发射子弹
 message S_To_C_Bullet
 {
 	uint32 playerId = 1;
@@ -69,54 +69,74 @@ message S_To_C_Bullet
 	uint32 BulletID = 6;
 	RotationData rotation = 7;
 }
-
+//删除子弹
 message C_To_S_RemoveBullet
 {
 	uint32 BulletID = 6;
 }
+//删除子弹
 message S_To_C_RemoveBullet
 {
 	uint32 BulletID = 6;
 }
-
+//攻击消息
 message C_To_S_PlayerAtk
 {
   uint32 AtkPlayerId=1;
   uint32 BAtkPlayerId=2;
   uint32 BulletID = 6;
 }
+//玩家血量
 message S_To_C_PlayerHp
 {
   uint32 PlayerId=1;
   uint32 Hp=2;
   PlayerType type=3;
 }
-
+//玩家死亡
 message C_To_S_PlayerAlive
 {
   uint32 PlayerId=1;
   PlayerType type=3;
 }
-
+//玩家动画类型枚举
+enum PlayerAniType
+{
+	BoolType = 0;
+	IsTriggerType = 1;
+	IntType = 2;
+}
+//玩家动画
 message C_To_S_PlayerAnimator
 {
-  uint32 PlayerId=1;
-  string AnimatorName=2;
-  bool aniType = 3;
-}
+	uint32 PlayerId=1;
+	string AnimatorName=2;
+	bool aniType = 3;
+	PlayerAniType type = 4;
+}//玩家动画
 message S_To_C_PlayerAnimator
 {
-  uint32 PlayerId=1;
-  string AnimatorName=2;
-  bool aniType = 3;
+	  uint32 PlayerId=1;
+	  string AnimatorName=2;
+	  bool aniType = 3;
+	  PlayerAniType type = 4;
 }
 //玩家退出游戏，并非断开连接
 message C_To_S_ExitGame
 {
 	uint32 playerId = 1;
 }
+//玩家退出游戏，并非断开连接
 message S_To_C_ExitGame
 {
 	uint32 playerId = 1;
 }
-
+//玩家金币增加或扣除消息
+message C_To_S_Gold
+{
+	int32 gold = 1;
+}
+message S_To_C_Gold
+{
+	int32 gold = 1;
+}
