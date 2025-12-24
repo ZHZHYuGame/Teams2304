@@ -17,6 +17,15 @@ namespace MyGame {
     Dead = 1,
   }
 
+  /// <summary>
+  ///玩家动画类型枚举
+  /// </summary>
+  public enum PlayerAniType {
+    BoolType = 0,
+    IsTriggerType = 1,
+    IntType = 2,
+  }
+
   #endregion
 
   #region Messages
@@ -1353,6 +1362,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 4;
+    private global::MyGame.PlayerAniType type_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.PlayerAniType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -1367,6 +1387,10 @@ namespace MyGame {
         output.WriteRawTag(24);
         output.WriteBool(AniType);
       }
+      if (Type != 0) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) Type);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1380,6 +1404,9 @@ namespace MyGame {
       }
       if (AniType != false) {
         size += 1 + 1;
+      }
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       return size;
     }
@@ -1402,6 +1429,10 @@ namespace MyGame {
           }
           case 24: {
             AniType = input.ReadBool();
+            break;
+          }
+          case 32: {
+            type_ = (global::MyGame.PlayerAniType) input.ReadEnum();
             break;
           }
         }
@@ -1448,6 +1479,17 @@ namespace MyGame {
       }
     }
 
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 4;
+    private global::MyGame.PlayerAniType type_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::MyGame.PlayerAniType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (PlayerId != 0) {
@@ -1462,6 +1504,10 @@ namespace MyGame {
         output.WriteRawTag(24);
         output.WriteBool(AniType);
       }
+      if (Type != 0) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) Type);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1475,6 +1521,9 @@ namespace MyGame {
       }
       if (AniType != false) {
         size += 1 + 1;
+      }
+      if (Type != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
       }
       return size;
     }
@@ -1497,6 +1546,10 @@ namespace MyGame {
           }
           case 24: {
             AniType = input.ReadBool();
+            break;
+          }
+          case 32: {
+            type_ = (global::MyGame.PlayerAniType) input.ReadEnum();
             break;
           }
         }
