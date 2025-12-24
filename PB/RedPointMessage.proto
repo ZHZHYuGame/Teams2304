@@ -1,0 +1,24 @@
+syntax = "proto3";
+package myGame;
+
+//红点Key
+enum UIRedPointType
+{
+  UI_Main = 0;
+
+  UI_BagIcon = 1;
+  UI_Bag_Item = 11;
+
+  UI_ShopIcon = 2;
+  UI_TaskIcon = 3;
+}
+
+message S_To_C_RedPoint_Msg
+{
+  int32 type =1;
+  bool state=2;
+  int32 num=3;
+}
+
+
+
