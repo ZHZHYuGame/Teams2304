@@ -13,4 +13,6 @@ NetID = {
     S_To_C_Register = 1012,
     C_To_S_Log = 1013,
     S_To_C_Log = 1014,
+    S_To_C_RoleID = 1015,
+    S_To_C_RedPoint = 1016
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
-//using MyGame;
+using MyGame;
 using UnityEngine;
 
 public class NetManager : Singleton<NetManager>

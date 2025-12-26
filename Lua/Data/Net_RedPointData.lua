@@ -1,0 +1,3 @@
+Net_RedPointData = {
+    
+}
