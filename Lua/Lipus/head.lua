@@ -59,4 +59,7 @@ CShap_Handle_Lua_Tool = CS.CShap_Handle_Lua_Tool
 Protobuf = CS.Google.Protobuf.MessageExtensions
 netManager = CS.NetManager
 ABManager = CS.ABManager
-SceneManager = CS.UnityEngine.SceneManagement.SceneManager
+
+SceneManager=CS.UnityEngine.SceneManagement.SceneManager
+
+GuideMaskManager=nil
