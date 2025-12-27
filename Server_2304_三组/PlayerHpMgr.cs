@@ -72,6 +72,7 @@ namespace Server_2304
                     allPlayerHp[bAtkPlayerID] = 0;
                     //该玩家血条为零，通知所有人该玩家死亡
                     type =  PlayerType.Dead;
+                    PlayerConfig.GetInstance().SetGold(3000, atkPlayerID);
                 }
                 RefreshAllPlayerHp(bAtkPlayerID, allPlayerHp[bAtkPlayerID],type);
                 Console.WriteLine($"{atkPlayerID}对{bAtkPlayerID}造成了20点伤害！剩余血量{allPlayerHp[bAtkPlayerID]}");
