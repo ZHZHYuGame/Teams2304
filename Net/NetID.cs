@@ -60,4 +60,12 @@ public static class NetID
     /// 服务器反馈客户端登录结果
     /// </summary>
     public static int S_To_C_Log = 1014;
+    /// <summary>
+    /// 客户端向服务器发送角色ID
+    /// </summary>
+    public static int C_To_S_RoleID = 1015;
+    /// <summary>
+    /// 服务器反馈客户端红点数据
+    /// </summary>
+    public static int S_To_C_RedPoint = 1016;
 }
