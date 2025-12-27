@@ -1,0 +1,12 @@
+syntax="proto3";
+package myGame;
+
+message C_To_S_Guide_Msg
+{
+	int32 GuideID = 1;
+}
+//
+message S_To_C_Guide_Msg
+{
+	int32 GuideID = 1;
+}
